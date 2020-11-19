@@ -1,0 +1,19 @@
+.profile__avatar {
+  content: '';
+  border-radius: 100%;
+ /*  width: 30vw;
+  max-width: 384px;
+  height: 30vw;
+  max-height: 384px;
+  background-image: url(../../../images/avatar-hero.jpg); */
+  background-position: center;
+  background-size: cover;
+/*   margin: 71px 0; */
+}
+/* 
+@media (max-width: 768px) {
+  .profile__avatar {
+    margin: 4px 0 17px;
+    border: 3px solid;
+  }
+} */

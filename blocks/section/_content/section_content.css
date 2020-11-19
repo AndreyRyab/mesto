@@ -1,0 +1,10 @@
+.section_content {
+  margin: 0 19px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .section_content {
+    margin: 0 auto;
+  }
+}
