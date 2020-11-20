@@ -1,0 +1,24 @@
+.profile__user-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  margin: 0 0 0 10px;
+  border: 1px solid #ffff;
+  background-color: #0000;
+  cursor: pointer;
+  transition: ease-in-out 300ms;
+}
+
+.profile__user-button:hover {
+  opacity: 0.6;
+}
+
+@media (min-width: 768px) {
+  .profile__user-button {
+    margin-left: 18px;
+    width: 24px;
+    height: 24px;
+  }
+}

@@ -1,0 +1,11 @@
+.profile__user-container {
+  display: flex;
+  align-items: center;
+  margin: 26px auto 7px;
+}
+
+@media (min-width: 768px) {
+  .profile__user-container {
+    margin: 0 0 7px;
+  }
+}
