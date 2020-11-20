@@ -1,9 +1,0 @@
-.header_content {
-  padding: 28px 27px 32px;
-}
-
-@media (min-width: 934px) {
-  .header_content {
-    padding: 45px 0 41px;
-  }
-}

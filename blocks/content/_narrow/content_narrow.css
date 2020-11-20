@@ -1,0 +1,15 @@
+.content_narrow {
+  margin: 0 19px;
+}
+
+@media (min-width: 768px) {
+  .content_narrow {
+    margin: 0 20px;
+  }
+}
+
+@media (min-width: 974px) {
+  .content_narrow {
+    margin: 0;
+  }
+}
