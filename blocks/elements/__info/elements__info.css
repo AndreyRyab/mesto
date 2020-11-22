@@ -6,3 +6,16 @@
   padding: 0 20px 0;
   background-color: #fff;
 }
+
+@media (min-width: 570px) {
+  .elements__info {
+    height: 100px;
+    ;
+  }
+}
+
+@media (min-width: 920px) {
+  .elements__info {
+    height: 79px;
+  }
+}

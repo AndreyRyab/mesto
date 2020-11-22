@@ -5,6 +5,18 @@
   max-width: 880px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   list-style: none;
+}
+
+@media (min-width: 570px) {
+  .elements__grid {
+    justify-content: space-evenly;
+  }
+}
+
+@media (min-width: 920px) {
+  .elements__grid {
+    justify-content: space-between;
+  }
 }
