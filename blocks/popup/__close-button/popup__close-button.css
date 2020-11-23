@@ -1,0 +1,18 @@
+.popup__close-button {
+  padding: 0;
+  position: absolute;
+  right: 5px;
+  top: -30px;
+  width: 20px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+@media (min-width: 530px) {
+  .popup__close-button {
+    right: -30px;
+    top: -30px;
+    width: 32px;
+  }
+}
