@@ -1,17 +1,15 @@
-# Проект 4: Место
+# Mesto/Russia
 
-### Обзор
+I's a [single-page project](https://andreyryab.github.io/mesto/index.html) - kind of a photo-blog.
+Features:
 
-* Figma
-* Картинки
+* header
+* user-profile: avatar, editable user-info, add-cards button
+* cards with images, titles and like-buttons
+* user info edit form, popup
+* footer
 
-**Figma**
+**Technologies**
+html, css, pure Javascript.
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
-
-**Картинки**
-
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
+Will be updated.
