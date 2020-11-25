@@ -17,6 +17,8 @@
 
 @media (min-width: 768px) {
   .popup__form-button {
+    font-size: 18px;
+    line-height: 1.22;
     margin-top: 48px;
   }
 }

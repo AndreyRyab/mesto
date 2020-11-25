@@ -11,4 +11,11 @@
   margin-right: 19px;
   position: relative;
   box-sizing: border-box;
+  padding: 25px 22px;
+}
+
+@media (min-width: 600px) {
+  .popup__container {
+    padding: 34px 36px 37px;
+  }
 }

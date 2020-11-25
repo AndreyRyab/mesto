@@ -1,3 +1,6 @@
 .popup__form-input_name {
-  
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
