@@ -9,9 +9,9 @@ let popupInputName = document.querySelector('.popup__form-input_name');
 let popupInputJob = document.querySelector('.popup__form-input_job');
 
 function openPopup() {
-  popup.classList.add('popup_opened');
   popupInputName.value = profileUserName.textContent;
   popupInputJob.value = profileUserJob.textContent;
+  popup.classList.add('popup_opened');
 }
 
 function closePopup() {
