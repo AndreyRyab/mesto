@@ -1,4 +1,9 @@
 .header__logo {
   width: 32vw;
   max-width: 142px;
+  transition: ease-in-out 300ms;
+}
+
+.header__logo:hover {
+  opacity: 0.6;
 }

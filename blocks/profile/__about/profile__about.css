@@ -3,6 +3,10 @@
   margin: 0 auto;
   font-size: 14px;
   line-height: 1.21;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {
@@ -10,5 +14,6 @@
     margin: 0;
     font-size: 18px;
     line-height: 1.22;
+    max-width: 400px;
   }
 }

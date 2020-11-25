@@ -1,12 +1,19 @@
 .popup__close-button {
   padding: 0;
   position: absolute;
-  right: 5px;
-  top: -30px;
-  width: 20px;
+  right: 3px;
+  top: -42px;
+  width: 30px;
+  /* Александр, приветствую. Спасибо за крутое ревью. Вот тут ставлю 20px, как в макете, но иконка почему-то выглядит меньше, хотя инспектор говорит, что размеры ок. Поэтому мой внутренний дизайнер хочет 30px - так лучше выглядит. Или я делаю что-то не так и где-то появляется паддинг, который ужимает иконку? Но почему его не видно? И почему такой эффект только на небольших разрешениях? Пойду почитаю ещё про это, а пока оставлю так. */
+  height: 30px;
   border: none;
   background-color: transparent;
   cursor: pointer;
+  transition: ease-in-out 300ms;
+}
+
+.popup__close-button:hover {
+  opacity: 0.6;
 }
 
 @media (min-width: 530px) {

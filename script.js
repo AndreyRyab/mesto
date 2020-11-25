@@ -1,29 +1,30 @@
-let userEditButton = document.querySelector('.profile__user-button'); /* set variable for edit-button */
-let popupCloseButton = document.querySelector('.popup__close-button'); /* set variable for x-button */
-let popupSubmitButton = document.querySelector('.popup__form-button'); /* set variable for submit-button */
+let userEditButton = document.querySelector('.profile__user-button');
+let popupCloseButton = document.querySelector('.popup__close-button');
+let popupSubmitButton = document.querySelector('.popup__form-button');
 let popup = document.querySelector('.popup');
+let popupForm = document.querySelector('.popup__form');
+let profileUserName = document.querySelector('.profile__username');
+let profileUserJob = document.querySelector('.profile__about');
+let popupInputName = document.querySelector('.popup__form-input_name');
+let popupInputJob = document.querySelector('.popup__form-input_job');
 
-userEditButton.addEventListener('click', togglePopup); /* set listener for edit-button */
-popupCloseButton.addEventListener('click', togglePopup); /* set listener for x-button */
-
-/* set func for popup - toggle close-open by adding the '.popup_opened'-class*/
-function togglePopup() {
-  popup.classList.toggle('popup_opened');
+function openPopup() {
+  popup.classList.add('popup_opened');
+  popupInputName.value = profileUserName.textContent;
+  popupInputJob.value = profileUserJob.textContent;
 }
 
-let popupForm = document.querySelector('.popup__form'); /* set variable for the form */
-let profileUserName = document.querySelector('.profile__username'); /* set variable for username */
-let profileUserJob = document.querySelector('.profile__about'); /* set variable for user job */
+function closePopup() {
+  popup.classList.remove('popup_opened');
+}
 
-popupForm.addEventListener('submit', handleForm); /* set listener for the form */
-
-/* set func for editing user info */
 function handleForm(evt) {
   evt.preventDefault(); /* prevent auto reload */
-  let popupInputName = document.querySelector('.popup__form-input_name'); /* set variable for username-input */
-  profileUserName.textContent = popupInputName.value; /* change the username value */
-  let popupInputJob = document.querySelector('.popup__form-input_job'); /* set variable for job-input */
-  profileUserJob.textContent = popupInputJob.value; /* change the job value */
+  profileUserName.textContent = popupInputName.value;
+  profileUserJob.textContent = popupInputJob.value;
+  closePopup();
 }
 
-popupSubmitButton.addEventListener('click', togglePopup); /* closing the popup when submit */
+userEditButton.addEventListener('click', openPopup);
+popupCloseButton.addEventListener('click', closePopup);
+popupForm.addEventListener('submit', handleForm);
