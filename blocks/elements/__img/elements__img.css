@@ -1,5 +1,29 @@
 .elements__img {
   width: 100%;
+  min-width: 282px;
   max-width: 350px;
+  height: 100%;
+  min-height: 282px;
   object-fit: cover;
+  background-image: url(../../../images/elbrus.jpg);
+  background-position: center;
+  background-size: cover;
 }
+
+/* .hero__avatar {
+  content: '';
+  border-radius: 100%;
+  border: 11px solid #fff;
+  width: 30vw;
+  max-width: 384px;
+  height: 30vw;
+  max-height: 384px;
+  background-image: url(../../../images/avatar-hero.jpg);
+  background-position: center;
+  background-size: cover;
+  margin: 71px 0;
+} */
+
+/* width: 100%;
+  max-width: 350px;
+  object-fit: cover; */
