@@ -1,17 +1,17 @@
-.elements__like-button {
+.cards__trash-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  align-self: center;
   width: 30px;
   height: 30px;
   border: none;
   background-color: inherit;
   padding: 0;
+  margin: 13px 10px auto auto;
   cursor: pointer;
   transition: ease-in-out 300ms;
 }
 
-.elements__like-button:hover {
+.cards__trash-button:hover {
   opacity: 0.6;
 }

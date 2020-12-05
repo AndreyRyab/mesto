@@ -1,4 +1,4 @@
-.elements__container {
+.cards__container {
   margin: 0 auto;
   padding: 0;
   width: 100%;
@@ -10,13 +10,13 @@
 }
 
 @media (min-width: 570px) {
-  .elements__container {
+  .cards__container {
     justify-content: space-evenly;
   }
 }
 
 @media (min-width: 920px) {
-  .elements__container {
+  .cards__container {
     justify-content: space-between;
   }
 }
