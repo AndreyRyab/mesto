@@ -1,4 +1,4 @@
-.elements__item {
+.cards__item {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -11,14 +11,14 @@
 }
 
 @media (min-width: 570px) {
-  .elements__item {
+  .cards__item {
     width: 45vw;
     max-width: 350px;
   }
 }
 
 @media (min-width: 920px) {
-  .elements__item {
+  .cards__item {
     max-width: 282px;
   }
 }

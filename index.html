@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto/Russia</title>
   <link rel="shortcut icon" href="images/favicon.ico">
-  <meta name="description" content="Сайт о достопримечательностях России">
+  <meta name="description" content="Соцсеть для путешественников">
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 
@@ -33,59 +33,65 @@
           <img class="profile__add-icon" src="images/button-plus-icon.svg" alt="Кнопка добавления нового фото">
         </button>
       </section>
-      <section class="elements content__narrow">
-        <ul class="elements__grid">
-          <li class="elements__item">
-            <img class="elements__img" src="images/elbrus.jpg" alt="Гора Эльбрус, вид с юга на обе вершины">
-            <div class="elements__info">
-              <h2 class="elements__title">Эльбрус</h2>
-              <button class="elements__like-button" type="button">
-                <img class="elements__like-icon" src="images/like-icon.svg" alt="Кнопка 'Нравится'">
+      <section class="cards content__narrow">
+        <ul class="cards__container">
+
+          <li class="cards__item">
+            <div class="cards__img">
+              <button class="cards__trash-button">
+                <img class="cards__trash-icon" src="images/trash-icon.svg" alt="Кнопка 'Удалить'">
+              </button>
+            </div>
+            <div class="cards__info">
+              <h2 class="cards__title">Эльбрус</h2>
+              <button class="cards__like-button" type="button">
+                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
               </button>
             </div>
           </li>
-          <li class="elements__item">
-            <img class="elements__img" src="images/polyana.jpg" alt="Сноубордисты на склоне в Красной Поляне">
-            <div class="elements__info">
-              <h2 class="elements__title">Красная поляна</h2>
-              <button class="elements__like-button" type="button">
-                <img class="elements__like-icon" src="images/like-icon.svg" alt="Кнопка 'Нравится'">
+
+          <li class="cards__item">
+            <img class="cards__img" src="images/polyana.jpg" alt="Сноубордисты на склоне в Красной Поляне">
+            <div class="cards__info">
+              <h2 class="cards__title">Красная поляна</h2>
+              <button class="cards__like-button" type="button">
+                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
               </button>
             </div>
           </li>
-          <li class="elements__item">
-            <img class="elements__img" src="images/cheget.jpg" alt="Кресельный подъёмник на Чегете">
-            <div class="elements__info">
-              <h2 class="elements__title">Чегет, Приэльбрусье</h2>
-              <button class="elements__like-button" type="button">
-                <img class="elements__like-icon" src="images/like-icon.svg" alt="Кнопка 'Нравится'">
+          <li class="cards__item">
+            <img class="cards__img" src="https://cutt.ly/JhnOUBi" alt="Кресельный подъёмник на Чегете">
+            <div class="cards__info">
+              <h2 class="cards__title">Чегет, Приэльбрусье</h2>
+              <button class="cards__like-button" type="button">
+                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
               </button>
             </div>
           </li>
-          <li class="elements__item">
-            <img class="elements__img" src="images/karelia.jpg" alt="Закат на озере в Карелии">
-            <div class="elements__info">
-              <h2 class="elements__title">Карелия</h2>
-              <button class="elements__like-button" type="button">
-                <img class="elements__like-icon" src="images/like-icon.svg" alt="Кнопка 'Нравится'">
+          <li class="cards__item">
+            <img class="cards__img" src="images/karelia.jpg" alt="Закат на озере в Карелии">
+            <div class="cards__info">
+              <h2 class="cards__title">Карелия</h2>
+              <button class="cards__like-button" type="button">
+                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
               </button>
             </div>
           </li>
-          <li class="elements__item">
-            <img class="elements__img" src="images/ladoga.jpg" alt="Острова Ладожского озера">
-            <div class="elements__info">
-              <h2 class="elements__title">Ладожское озеро</h2>
-              <button class="elements__like-button" type="button">
-                <img class="elements__like-icon" src="images/like-icon.svg" alt="Кнопка 'Нравится'">
+          <li class="cards__item">
+            <img class="cards__img" src="images/ladoga.jpg" alt="Острова Ладожского озера">
+            <div class="cards__info">
+              <h2 class="cards__title">Ладожское озеро</h2>
+              <button class="cards__like-button" type="button">
+                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
               </button>
             </div>
           </li>
-          <li class="elements__item">
-            <img class="elements__img" src="images/konduki.jpg" alt="Вид на карьер в Кондуках, Тульская область">
-            <div class="elements__info">
-              <h2 class="elements__title">Кондуки</h2>
-              <button class="elements__like-button" type="button">
-                <img class="elements__like-icon" src="images/like-icon.svg" alt="Кнопка 'Нравится'">
+          <li class="cards__item">
+            <img class="cards__img" src="https://cutt.ly/ShnPP8p" alt="Вид на карьер в Кондуках, Тульская область">
+            <div class="cards__info">
+              <h2 class="cards__title">Кондуки</h2>
+              <button class="cards__like-button" type="button">
+                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
               </button>
             </div>
           </li>
@@ -103,10 +109,12 @@
       <form name="popup__form" class="popup__form">
         <h2 class="popup__form-heading">Редактировать профиль</h2>
         <label class="popup__form-item">
-          <input class="popup__form-input popup__form-input_name" name="username" type="text" placeholder="Ваше имя" required>
+          <input class="popup__form-input popup__form-input_name" name="username" type="text" placeholder="Ваше имя"
+            required>
         </label>
         <label class="popup__form-item">
-          <input class="popup__form-input popup__form-input_job" name="userjob" type="text" placeholder="Ваша профессия" required>
+          <input class="popup__form-input popup__form-input_job" name="userjob" type="text" placeholder="Ваша профессия"
+            required>
         </label>
         <button class="popup__form-button" type="submit" value="send">Сохранить</button>
       </form>
