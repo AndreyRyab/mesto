@@ -1,0 +1,9 @@
+.popup__form-heading_add-card {
+  margin-bottom: 12px;
+}
+
+@media (min-width: 768px) {
+  .popup__form-heading_add-card {
+    margin-bottom: 18px;
+  }
+}

@@ -35,12 +35,17 @@ let profileUserName = document.querySelector('.profile__username');
 let profileUserJob = document.querySelector('.profile__about');
 let popupInputName = document.querySelector('.popup__form-input_name');
 let popupInputJob = document.querySelector('.popup__form-input_job');
+const cardAddButton = document.querySelector('.profile__add-button');
+const popupAddCard = document.querySelector('.popup_add-card');
+const popupAddCardCloseButton = popupAddCard.querySelector('.popup__close-button');
 
 
 const cardsContainer = document.querySelector('.cards__container');
 const likeButton = document.querySelector('.cards__like-button');
 const likeIcon = document.querySelector('.cards__like-icon');
 const cardTemplate = document.querySelector('#cards__item-template');
+
+
 
 function makeOneCard(element) {
   let cardItem = cardTemplate.content.cloneNode(true);
@@ -56,28 +61,40 @@ const cardsList = initialCards.forEach(makeOneCard);
 
 
 
-function openPopup() {
+function openPopupUser() {
   popup.classList.add('popup_opened');
   popupInputName.value = profileUserName.textContent;
   popupInputJob.value = profileUserJob.textContent;
 }
 
-function closePopup() {
+function closePopupUser() {
   popup.classList.remove('popup_opened');
 }
 
-function handleForm(evt) {
+function handleFormUser(evt) {
   evt.preventDefault(); /* prevent auto reload */
   profileUserName.textContent = popupInputName.value;
   profileUserJob.textContent = popupInputJob.value;
-  closePopup();
+  closePopupUser();
+}
+
+function openPopupAddCard() {
+  popupAddCard.classList.add('popup_opened');
+}
+
+function closePopupAddCard() {
+  popupAddCard.classList.remove('popup_opened');
 }
 
 /* function likeToggle() {
   likeButton.innerHTML = '<img class="cards__like-icon" src="images/like-icon-active.svg" alt="Кнопка 'Нравится'">';
 } */
 
-userEditButton.addEventListener('click', openPopup);
-popupCloseButton.addEventListener('click', closePopup);
-popupForm.addEventListener('submit', handleForm);
+userEditButton.addEventListener('click', openPopupUser);
+popupCloseButton.addEventListener('click', closePopupUser);
+popupForm.addEventListener('submit', handleFormUser);
+cardAddButton.addEventListener('click', openPopupAddCard);
+popupAddCardCloseButton.addEventListener('click', closePopupAddCard);
+
+
 /* likeButton.addEventListener('click', likeToggle); */

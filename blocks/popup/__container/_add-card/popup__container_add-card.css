@@ -1,0 +1,11 @@
+.popup__container_add-card {
+  margin-left: 40px;
+  margin-right: 40px;
+  padding: 30px 20px;
+}
+
+@media (min-width: 768px) {
+  .popup__container_add-card {
+    padding: 34px 36px 36px;
+  }
+}
