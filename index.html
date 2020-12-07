@@ -36,7 +36,7 @@
       <section class="cards content__narrow">
         <ul class="cards__container">
 
-          <li class="cards__item">
+ <!--          <li class="cards__item">
             <div class="cards__img">
               <button class="cards__trash-button">
                 <img class="cards__trash-icon" src="images/trash-icon.svg" alt="Кнопка 'Удалить'">
@@ -94,14 +94,16 @@
                 <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
               </button>
             </div>
-          </li>
+          </li> -->
         </ul>
       </section>
     </main>
+
     <footer class="footer content__narrow">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
   </div>
+
   <div class="popup">
     <div class="popup__container">
       <button class="popup__close-button" type="button"><img src="images/close-popup-icon.svg"
@@ -120,6 +122,22 @@
       </form>
     </div>
   </div>
+
+  <template id="cards__item-template">
+    <li class="cards__item">
+      <img class="cards__img" src="" alt="">
+      <button class="cards__trash-button">
+          <img class="cards__trash-icon" src="images/trash-icon.svg" alt="Кнопка 'Удалить'">
+      </button>
+      <div class="cards__info">
+        <h2 class="cards__title"></h2>
+        <button class="cards__like-button" type="button">
+          <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
+        </button>
+      </div>
+    </li>
+  </template>
+  
   <script src="./script.js"></script>
 </body>
 
