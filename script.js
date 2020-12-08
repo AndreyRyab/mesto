@@ -37,16 +37,16 @@ let popupInputName = document.querySelector('.popup__form-input_name');
 let popupInputJob = document.querySelector('.popup__form-input_job');
 
 const cardsContainer = document.querySelector('.cards__container');
-const likeButton = document.querySelector('.cards__like-button');
-const likeIcon = document.querySelector('.cards__like-icon');
 const cardTemplate = document.querySelector('#cards__item-template');
 
 const popupAddCard = document.querySelector('.popup_add-card');
 const cardAddButton = document.querySelector('.profile__add-button');
 const popupAddCardCloseButton = popupAddCard.querySelector('.popup__close-button');
 const popupAddCardForm = popupAddCard.querySelector('.popup__form_add-card');
-let popupInputTitle = popupAddCardForm.querySelector('.popup__form-input_title');
-let popupInputLink = popupAddCardForm.querySelector('.popup__form-input_link');
+const popupInputTitle = popupAddCardForm.querySelector('.popup__form-input_title');
+const popupInputLink = popupAddCardForm.querySelector('.popup__form-input_link');
+const likeButton = document.querySelector('.cards__like-button');
+const likeButtonActive = document.querySelector('.cards__like-button-active');
 
 //make one card from template giving name and link values
 function makeOneCard(element) {
@@ -109,6 +109,7 @@ function addNewCard(evt) {
   cardsContainer.prepend(cardItem);
   popupInputTitle.value = popupInputTitle.placeholder;
   popupInputLink.value = popupInputLink.placeholder;
+  
   closePopupAddCard();
 }
 
@@ -119,7 +120,10 @@ function addNewCard(evt) {
   makeOneCard({ name: titleNew }, { link: linkNew });
   cardsContainer.prepend(cardItem);
   closePopupAddCard(); */
-
+  
+/*   function likeAdd () {
+    likeButton.classList.remove('cards__like-button-active_hide');
+  } */
 
 
 userEditButton.addEventListener('click', openPopupUser);
@@ -128,3 +132,4 @@ popupForm.addEventListener('submit', handleFormUser);
 cardAddButton.addEventListener('click', openPopupAddCard);
 popupAddCardCloseButton.addEventListener('click', closePopupAddCard);
 popupAddCardForm.addEventListener('submit', addNewCard);
+/* likeButton.addEventListener('click', likeAdd); */

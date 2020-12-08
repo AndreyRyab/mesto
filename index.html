@@ -37,7 +37,7 @@
       <section class="cards content__narrow">
         <ul class="cards__container">
 
- <!--          <li class="cards__item">
+          <!--          <li class="cards__item">
             <div class="cards__img">
               <button class="cards__trash-button">
                 <img class="cards__trash-icon" src="images/trash-icon.svg" alt="Кнопка 'Удалить'">
@@ -126,8 +126,8 @@
 
   <div class="popup popup_add-card">
     <div class="popup__container popup__container_add-card">
-      <button class="popup__close-button popup__close-button_add-card" type="button"><img src="images/close-popup-icon.svg"
-          alt="Иконка закрытия диалогового окна"></button>
+      <button class="popup__close-button popup__close-button_add-card" type="button"><img
+          src="images/close-popup-icon.svg" alt="Иконка закрытия диалогового окна"></button>
       <form name="popup__form" class="popup__form popup__form_add-card">
         <h2 class="popup__form-heading popup__form-heading_add-card">Новое место</h2>
         <label class="popup__form-item">
@@ -135,8 +135,8 @@
             required>
         </label>
         <label class="popup__form-item">
-          <input class="popup__form-input popup__form-input_link" name="link" type="text" placeholder="Ссылка на картинку"
-            required>
+          <input class="popup__form-input popup__form-input_link" name="link" type="text"
+            placeholder="Ссылка на картинку" required>
         </label>
         <button class="popup__form-button popup__form-button_add-card" type="submit" value="send">Создать</button>
       </form>
@@ -147,17 +147,25 @@
     <li class="cards__item">
       <img class="cards__img" src="" alt="">
       <button class="cards__trash-button">
-          <img class="cards__trash-icon" src="images/trash-icon.svg" alt="Кнопка 'Удалить'">
+        <img class="cards__trash-icon" src="images/trash-icon.svg" alt="Кнопка 'Удалить'">
       </button>
       <div class="cards__info">
         <h2 class="cards__title"></h2>
-        <button class="cards__like-button" type="button">
-          <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
-        </button>
+
+        <div>
+          <button class="cards__like-button" type="button">
+            <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Нажмите, если нравится">
+          </button>
+          <button class="cards__like-button-active cards__like-button-active_hide" type="button">
+            <img class="cards__like-icon cards__like-icon_active" src="images/like-icon-active.svg"
+              alt="Нажмите, если не нравится">
+          </button>
+        </div>
+
       </div>
     </li>
   </template>
-  
+
   <script src="./script.js"></script>
 </body>
 
