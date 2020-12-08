@@ -48,6 +48,7 @@ const popupAddCardForm = popupAddCard.querySelector('.popup__form_add-card');
 let popupInputTitle = popupAddCardForm.querySelector('.popup__form-input_title');
 let popupInputLink = popupAddCardForm.querySelector('.popup__form-input_link');
 
+//make one card from template giving name and link values
 function makeOneCard(element) {
   let cardItem = cardTemplate.content.cloneNode(true);
   cardItem.querySelector('.cards__title').textContent = element.name;
@@ -64,6 +65,7 @@ function makeOneCard(element) {
   return cardItem;
 } */
 
+//make a list set on the default massive
 function renderInitialListCards() {
   let cardsList = initialCards.map(makeOneCard);
   cardsContainer.append(...cardsList);
@@ -97,13 +99,6 @@ function closePopupAddCard() {
   popupAddCard.classList.remove('popup_opened');
 }
 
-/* function addNewCard() {
-  let popupInputTitle = popupAddCardForm.querySelector('.popup__form-input_title').value;
-  let popupInputLink = popupAddCardForm.querySelector('.popup__form-input_link').value;
-  makeOneCard({ name: popupInputTitle }, { link: popupInputLink });
-  cardsContainer.prepend(cardItem);
-  closePopupAddCard();
-} */
 
 function addNewCard(evt) {
   evt.preventDefault();
@@ -112,12 +107,20 @@ function addNewCard(evt) {
   cardItem.querySelector('.cards__img').textContent = popupInputTitle.value;
   cardItem.querySelector('.cards__img').src = popupInputLink.value;
   cardsContainer.prepend(cardItem);
+  popupInputTitle.value = popupInputTitle.placeholder;
+  popupInputLink.value = popupInputLink.placeholder;
   closePopupAddCard();
 }
 
-/* function likeToggle() {
-  likeButton.innerHTML = '<img class="cards__like-icon" src="images/like-icon-active.svg" alt="Кнопка 'Нравится'">';
-} */
+/* function addNewCard(evt) {
+  evt.preventDefault();
+  let titleNew = popupInputTitle.value;
+  let linkNew = popupInputLink.value;
+  makeOneCard({ name: titleNew }, { link: linkNew });
+  cardsContainer.prepend(cardItem);
+  closePopupAddCard(); */
+
+
 
 userEditButton.addEventListener('click', openPopupUser);
 popupCloseButton.addEventListener('click', closePopupUser);
@@ -125,5 +128,3 @@ popupForm.addEventListener('submit', handleFormUser);
 cardAddButton.addEventListener('click', openPopupAddCard);
 popupAddCardCloseButton.addEventListener('click', closePopupAddCard);
 popupAddCardForm.addEventListener('submit', addNewCard);
-
-/* likeButton.addEventListener('click', likeToggle); */
