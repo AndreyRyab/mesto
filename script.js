@@ -63,6 +63,7 @@ function makeOneCard(element) {
     const targetItem = evt.target.closest('.cards__item');
     targetItem.remove();
   });
+/*   cardItem.querySelector('.cards__img').addEventListener('click', openFullSizeImg); */
   return cardItem;
 }
 
@@ -84,6 +85,10 @@ function addNewCard(evt) {
   closePopupAddCard();
   document.querySelector('.popup__form-input_title').value = document.querySelector('.popup__form-input_title').placeholder;
   document.querySelector('.popup__form-input_link').value = document.querySelector('.popup__form-input_link').placeholder;
+}
+
+function openFullSizeImg () {
+
 }
 
 function openPopupUser() {
@@ -110,6 +115,10 @@ function openPopupAddCard() {
 function closePopupAddCard() {
   popupAddCard.classList.remove('popup_opened');
 }
+
+
+/* document.createElement('figure');
+   document.createElement('figcaption'); */
 
 userEditButton.addEventListener('click', openPopupUser);
 popupCloseButton.addEventListener('click', closePopupUser);
