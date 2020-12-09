@@ -44,6 +44,7 @@ const popupAddCardForm = popupAddCard.querySelector('.popup__form_add-card');
 
 
 
+
 const cardAddButton = document.querySelector('.profile__add-button');
 const popupAddCardCloseButton = popupAddCard.querySelector('.popup__close-button');
 
@@ -52,7 +53,7 @@ const likeButtonActive = document.querySelector('.cards__like-button-active');
 
 
 
-//make one card from template giving name and link values
+//make one card from template, set name-, link-values and listeners for trash- and like-buttons
 function makeOneCard(element) {
   const cardTemplate = document.querySelector('#cards__item-template');
   let cardItem = cardTemplate.content.cloneNode(true);
@@ -62,44 +63,12 @@ function makeOneCard(element) {
   cardItem.querySelector('.cards__like-button').addEventListener('click', function (evt) {
     evt.target.classList.toggle('cards__like-button_active');
   });
+  cardItem.querySelector('.cards__trash-button').addEventListener('click', function (evt) {
+    const targetItem = evt.target.closest('.cards__item');
+    targetItem.remove();
+  });
   return cardItem;
 }
-
-
-
-
-/* function addSong(artistValue, titleValue) {
-  const songTemplate = document.querySelector('#song-template').content;
-  const songElement = songTemplate.cloneNode(true);
-  songElement.querySelector('.song__artist').textContent = artistValue;
-  songElement.querySelector('.song__title').textContent = titleValue;
-  songElement.querySelector('.song__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('song__like_active');
-  }
-  )
-  songsContainer.append(songElement);
-}
- */
-
-/* 
-function addNewCard(evt) {
-  evt.preventDefault();
-  const cardTemplate = document.querySelector('#cards__item-template');
-  const cardItem = cardTemplate.content.cloneNode(true);
-  const inputTitle = popupAddCardForm.querySelector('.popup__form-input_title');
-  const inputLink = popupAddCardForm.querySelector('.popup__form-input_link');
-  cardItem.querySelector('.cards__title').textContent = InputTitle.value;
-  cardItem.querySelector('.cards__img').textContent = InputTitle.value;
-  cardItem.querySelector('.cards__img').src = popupInputLink.value;
-  cardsContainer.prepend(cardItem);
-  popupInputTitle.value = popupInputTitle.placeholder;
-  popupInputLink.value = popupInputLink.placeholder;
-  closePopupAddCard();
-} */
-
-
-
-
 
 
 //make a list set on the default array
@@ -109,6 +78,31 @@ function renderInitialListCards() {
 }
 
 renderInitialListCards();
+
+
+/* function addNewCard(evt) {
+  evt.preventDefault(); */
+/*   let inputName = popupAddCardForm.querySelector('.popup__form-input_title').value;
+  let inputLink = popupAddCardForm.querySelector('.popup__form-input_link').value; */
+/* const newItem = [{name}, {link}]; */
+
+
+
+/*   [{name: popupAddCardForm.querySelector('.popup__form-input_title').value}, {link: popupAddCardForm.querySelector('.popup__form-input_link').value}];
+ *//*   console.log(inputName);
+ console.log(inputLink); */
+/* newItem = [inputName, inputLink]; */  /*тут надо задать element.name и element.link, которые нужны на вход makeOneCard*/
+/*   makeOneCard(newItem);
+  cardsContainer.prepend(cardItem);
+  closePopupAddCard();
+}
+ */
+
+
+function removeCard() {
+
+}
+
 
 
 
@@ -144,13 +138,7 @@ function closePopupAddCard() {
 
 
 
-/* function addNewCard(evt) {
-  evt.preventDefault();
-  let titleNew = popupInputTitle.value;
-  let linkNew = popupInputLink.value;
-  makeOneCard({ name: titleNew }, { link: linkNew });
-  cardsContainer.prepend(cardItem);
-  closePopupAddCard(); */
+
 
 /*   function likeAdd () {
     likeButton.classList.remove('cards__like-button-active_hide');
@@ -172,5 +160,5 @@ popupCloseButton.addEventListener('click', closePopupUser);
 popupForm.addEventListener('submit', handleFormUser);
 cardAddButton.addEventListener('click', openPopupAddCard);
 popupAddCardCloseButton.addEventListener('click', closePopupAddCard);
-/* popupAddCardForm.addEventListener('submit', addNewCard); */
-/* likeButton.addEventListener('click', likeAdd); */
+/* popupAddCardForm.addEventListener('submit', addNewCard);
+ */
