@@ -38,25 +38,21 @@ let popupInputJob = document.querySelector('.popup__form-input_job');
 
 
 //переменные для карточек
-const cardsContainer = document.querySelector('.cards__container');
 const popupAddCard = document.querySelector('.popup_add-card');
 const popupAddCardForm = popupAddCard.querySelector('.popup__form_add-card');
-
-
+const cardsContainer = document.querySelector('.cards__container');
 
 
 const cardAddButton = document.querySelector('.profile__add-button');
 const popupAddCardCloseButton = popupAddCard.querySelector('.popup__close-button');
 
-/* const likeButton = document.querySelector('.cards__like-button'); */
-const likeButtonActive = document.querySelector('.cards__like-button-active');
 
 
 
 //make one card from template, set name-, link-values and listeners for trash- and like-buttons
 function makeOneCard(element) {
   const cardTemplate = document.querySelector('#cards__item-template');
-  let cardItem = cardTemplate.content.cloneNode(true);
+  const cardItem = cardTemplate.content.cloneNode(true);
   cardItem.querySelector('.cards__title').textContent = element.name;
   cardItem.querySelector('.cards__img').textContent = element.name;
   cardItem.querySelector('.cards__img').src = element.link;
@@ -70,42 +66,25 @@ function makeOneCard(element) {
   return cardItem;
 }
 
-
-//make a list set on the default array
+//make a card-list from the default array
 function renderInitialListCards() {
-  let cardsList = initialCards.map(makeOneCard);
+  const cardsList = initialCards.map(makeOneCard);
   cardsContainer.append(...cardsList);
 }
 
 renderInitialListCards();
 
 
-/* function addNewCard(evt) {
-  evt.preventDefault(); */
-/*   let inputName = popupAddCardForm.querySelector('.popup__form-input_title').value;
-  let inputLink = popupAddCardForm.querySelector('.popup__form-input_link').value; */
-/* const newItem = [{name}, {link}]; */
-
-
-
-/*   [{name: popupAddCardForm.querySelector('.popup__form-input_title').value}, {link: popupAddCardForm.querySelector('.popup__form-input_link').value}];
- *//*   console.log(inputName);
- console.log(inputLink); */
-/* newItem = [inputName, inputLink]; */  /*тут надо задать element.name и element.link, которые нужны на вход makeOneCard*/
-/*   makeOneCard(newItem);
-  cardsContainer.prepend(cardItem);
+//make a custom card from the popup-form
+function addNewCard(evt) {
+  evt.preventDefault();
+  let nameText = document.querySelector('.popup__form-input_title').value;
+  let linkText = document.querySelector('.popup__form-input_link').value;
+  cardsContainer.prepend(makeOneCard({ name: nameText, link: linkText }));
   closePopupAddCard();
+  document.querySelector('.popup__form-input_title').value = document.querySelector('.popup__form-input_title').placeholder;
+  document.querySelector('.popup__form-input_link').value = document.querySelector('.popup__form-input_link').placeholder;
 }
- */
-
-
-function removeCard() {
-
-}
-
-
-
-
 
 function openPopupUser() {
   popup.classList.add('popup_opened');
@@ -132,33 +111,9 @@ function closePopupAddCard() {
   popupAddCard.classList.remove('popup_opened');
 }
 
-
-
-
-
-
-
-
-
-/*   function likeAdd () {
-    likeButton.classList.remove('cards__like-button-active_hide');
-  } */
-
-/* function removeCard(event) {
-  const targetCard = event.target.closest('.cards__item');
-  targetCard.remove();
-} */
-
-/* function addListenerToNewCard(card) {
-  const removeButton = card.querySelector('.cards__trash-button');
-  removeButton.addEventListener('click', removeCard);
-
-} */
-
 userEditButton.addEventListener('click', openPopupUser);
 popupCloseButton.addEventListener('click', closePopupUser);
 popupForm.addEventListener('submit', handleFormUser);
 cardAddButton.addEventListener('click', openPopupAddCard);
 popupAddCardCloseButton.addEventListener('click', closePopupAddCard);
-/* popupAddCardForm.addEventListener('submit', addNewCard);
- */
+popupAddCardForm.addEventListener('submit', addNewCard);
