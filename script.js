@@ -42,7 +42,6 @@ const popupFullImage = document.querySelector('.popup_full-image');
 const closeButtonFullImage = popupFullImage.querySelector('.popup__close-button_full-image');
 const cardTemplate = document.querySelector('#cards__item-template');
 
-
 //make one card from template, set name-, link-values and listeners for trash-, like-buttons and image
 function makeOneCard(element) {
   const cardItem = cardTemplate.content.cloneNode(true);
@@ -63,7 +62,7 @@ function makeOneCard(element) {
 }
 
 //open popup by adding class popup_opened
-function openPopup (element) {
+function openPopup(element) {
   element.classList.add('popup_opened');
 }
 
@@ -124,8 +123,6 @@ function openFullImage(evt) {
 function closeFullImage() {
   closePopupOnClickClose(popupFullImage);
 }
-
-
 
 userEditButton.addEventListener('click', openPopupUser);
 popupCloseButton.addEventListener('click', closePopupUser);
