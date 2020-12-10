@@ -1,0 +1,14 @@
+.popup__form-input_link {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 20px 0 9px;
+  color: #C4C4C4;
+}
+
+@media (min-width: 768px) {
+  .popup__form-input_link {
+    padding: 30px 0 10px;
+  }
+}

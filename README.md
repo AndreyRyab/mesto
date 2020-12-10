@@ -5,8 +5,10 @@ Features:
 
 * header
 * user-profile: avatar, editable user-info, add-cards button
-* cards with images, titles and like-buttons
-* user info edit form, popup
+* cards with images, titles, like-buttons, delete-buttons
+* user info edit form (in popup)
+* add card form (in popup)
+* full-size picture popup
 * footer
 
 **Technologies**

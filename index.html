@@ -30,78 +30,21 @@
           <p class="profile__about">Исследователь океана</p>
         </div>
         <button class="profile__add-button" type="button">
-          <img class="profile__add-icon" src="images/button-plus-icon.svg" alt="Кнопка добавления нового фото">
+          <img class="profile__add-icon" src="images/button-plus-icon.svg" alt="Кнопка добавления нового места">
         </button>
       </section>
+
       <section class="cards content__narrow">
         <ul class="cards__container">
-
-          <li class="cards__item">
-            <div class="cards__img">
-              <button class="cards__trash-button">
-                <img class="cards__trash-icon" src="images/trash-icon.svg" alt="Кнопка 'Удалить'">
-              </button>
-            </div>
-            <div class="cards__info">
-              <h2 class="cards__title">Эльбрус</h2>
-              <button class="cards__like-button" type="button">
-                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
-              </button>
-            </div>
-          </li>
-
-          <li class="cards__item">
-            <img class="cards__img" src="images/polyana.jpg" alt="Сноубордисты на склоне в Красной Поляне">
-            <div class="cards__info">
-              <h2 class="cards__title">Красная поляна</h2>
-              <button class="cards__like-button" type="button">
-                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
-              </button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img class="cards__img" src="https://cutt.ly/JhnOUBi" alt="Кресельный подъёмник на Чегете">
-            <div class="cards__info">
-              <h2 class="cards__title">Чегет, Приэльбрусье</h2>
-              <button class="cards__like-button" type="button">
-                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
-              </button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img class="cards__img" src="images/karelia.jpg" alt="Закат на озере в Карелии">
-            <div class="cards__info">
-              <h2 class="cards__title">Карелия</h2>
-              <button class="cards__like-button" type="button">
-                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
-              </button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img class="cards__img" src="images/ladoga.jpg" alt="Острова Ладожского озера">
-            <div class="cards__info">
-              <h2 class="cards__title">Ладожское озеро</h2>
-              <button class="cards__like-button" type="button">
-                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
-              </button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img class="cards__img" src="https://cutt.ly/ShnPP8p" alt="Вид на карьер в Кондуках, Тульская область">
-            <div class="cards__info">
-              <h2 class="cards__title">Кондуки</h2>
-              <button class="cards__like-button" type="button">
-                <img class="cards__like-icon" src="images/like-icon-disabled.svg" alt="Кнопка 'Нравится'">
-              </button>
-            </div>
-          </li>
         </ul>
       </section>
     </main>
+
     <footer class="footer content__narrow">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
   </div>
+
   <div class="popup">
     <div class="popup__container">
       <button class="popup__close-button" type="button"><img src="images/close-popup-icon.svg"
@@ -120,6 +63,47 @@
       </form>
     </div>
   </div>
+
+  <div class="popup popup_add-card">
+    <div class="popup__container popup__container_add-card">
+      <button class="popup__close-button popup__close-button_add-card" type="button"><img
+          src="images/close-popup-icon.svg" alt="Иконка закрытия диалогового окна"></button>
+      <form name="popup__form" class="popup__form popup__form_add-card">
+        <h2 class="popup__form-heading popup__form-heading_add-card">Новое место</h2>
+        <label class="popup__form-item">
+          <input class="popup__form-input popup__form-input_title" name="title" type="text" placeholder="Название"
+            required>
+        </label>
+        <label class="popup__form-item">
+          <input class="popup__form-input popup__form-input_link" name="link" type="text"
+            placeholder="Ссылка на картинку" required>
+        </label>
+        <button class="popup__form-button popup__form-button_add-card" type="submit" value="send">Создать</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_full-image">
+    <figure class="popup__image-full-container">
+      <button class="popup__close-button popup__close-button_full-image" type="button"><img
+          src="images/close-popup-icon.svg" alt="Кнопка закрытия модального окна"></button>
+      <img class="popup__image-full-pic" src="https://dezzzign.ru/wp-content/uploads/2020/12/mesto-polyana-xl.jpg"
+        alt="">
+      <figcaption class="popup__image-full-caption">Красная поляна</figcaption>
+    </figure>
+  </div>
+
+  <template id="cards__item-template">
+    <li class="cards__item">
+      <img class="cards__img" src="" alt="">
+      <button class="cards__trash-button"></button>
+      <div class="cards__info">
+        <h2 class="cards__title"></h2>
+        <button class="cards__like-button" type="button"></button>
+      </div>
+    </li>
+  </template>
+
   <script src="./script.js"></script>
 </body>
 

@@ -1,9 +1,11 @@
 .popup__close-button {
   padding: 0;
   position: absolute;
-  right: 0px;
-  top: -50px;
-  width: 40px;
+  right: 3px;
+  top: -42px;
+  align-self: flex-end;
+  width: 30px;
+  height: 30px;
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -16,8 +18,8 @@
 
 @media (min-width: 530px) {
   .popup__close-button {
-    right: -45px;
-    top: -45px;
-    width: 55px;
+    right: -30px;
+    top: -30px;
+    width: 32px;
   }
 }

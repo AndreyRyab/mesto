@@ -1,13 +1,12 @@
 .cards__trash-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
+  position: absolute;
+  align-self: flex-end;
+  width: 18px;
+  height: 19px;
   border: none;
+  background: url(/images/trash-icon.svg) center no-repeat;
   background-color: inherit;
-  padding: 0;
-  margin: 13px 10px auto auto;
+  margin: 18px 15px auto auto;
   cursor: pointer;
   transition: ease-in-out 300ms;
 }
