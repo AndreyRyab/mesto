@@ -4,7 +4,7 @@
   height: 20px;
   border: none;
   background-color: inherit;
-  background: url(/images/like-icon-disabled.svg) center no-repeat;
+  background: url(../../../images/like-icon-disabled.svg) center no-repeat;
   cursor: pointer;
   transition: ease-in-out 300ms;
   

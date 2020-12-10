@@ -4,7 +4,7 @@
   width: 18px;
   height: 19px;
   border: none;
-  background: url(/images/trash-icon.svg) center no-repeat;
+  background: url(../../../images/trash-icon.svg) center no-repeat;
   background-color: inherit;
   margin: 18px 15px auto auto;
   cursor: pointer;
