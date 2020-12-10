@@ -2,23 +2,23 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  width: 282px;
-  margin-bottom: 20px;
+  max-width: 282px;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-self: center;
 }
 
-/* @media (min-width: 570px) {
+@media (min-width: 570px) {
   .cards__item {
     width: 45vw;
-    max-width: 320px;
+    max-width: 350px;
   }
 }
 
-@media (min-width: 920px) {
+@media (min-width: 1024px) {
   .cards__item {
     max-width: 282px;
   }
-} */
+}

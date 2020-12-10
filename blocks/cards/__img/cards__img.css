@@ -5,18 +5,18 @@
   position: relative;
 }
 
-/* @media (min-width: 570px) {
+@media (min-width: 570px) {
   .cards__img {
-    /* width: 45vw; */
-/*     width: 320px;
-    height: 320px;
+    width: 45vw;
+    max-width: 350px;
+    max-height: 350px;
   }
 }
-*/ 
 
-/* @media (min-width: 920px) {
+
+@media (min-width: 1024px) {
   .cards__img {
-    width: 282px;
-    height: 282px;
+    max-width: 282px;
+    max-height: 282px;
   }
-} */
+}
