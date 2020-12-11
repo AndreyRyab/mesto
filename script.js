@@ -1,33 +1,6 @@
-const initialCards = [
-  {
-    name: 'Эльбрус',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-elbrus-xl.jpg'
-  },
-  {
-    name: 'Красная поляна',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-polyana-xl.jpg'
-  },
-  {
-    name: 'Чегет',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-cheget-xl.jpg'
-  },
-  {
-    name: 'Карелия',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-karelia-xl.jpg'
-  },
-  {
-    name: 'Ладожское озеро',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-ladoga-xl.jpg'
-  },
-  {
-    name: 'Кондуки',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-konduki-xl.jpg'
-  }
-];
-
 const userEditButton = document.querySelector('.profile__user-button');
 const popupCloseButton = document.querySelector('.popup__close-button');
-const popup = document.querySelector('.popup');
+const popup = document.querySelector('.popup'); //по ней работают две функции: openPopupUser, closePopupUser
 const popupForm = document.querySelector('.popup__form');
 const profileUserName = document.querySelector('.profile__username');
 const profileUserJob = document.querySelector('.profile__about');
@@ -41,13 +14,23 @@ const cardsContainer = document.querySelector('.cards__container');
 const popupFullImage = document.querySelector('.popup_full-image');
 const closeButtonFullImage = popupFullImage.querySelector('.popup__close-button_full-image');
 const cardTemplate = document.querySelector('#cards__item-template');
+const nameText = document.querySelector('.popup__form-input_title');
+const linkText = document.querySelector('.popup__form-input_link');
+
+function openFullImage(evt) {
+  popupFullImage.querySelector('.popup__image-full-pic').src = evt.target.src;
+  popupFullImage.querySelector('.popup__image-full-caption').textContent = evt.target.alt;
+  popupFullImage.querySelector('.popup__image-full-pic').alt = evt.target.alt;
+  openPopup(popupFullImage);
+}
 
 //make one card from template, set name-, link-values and listeners for trash-, like-buttons and image
-function makeOneCard(element) {
+function createCard(element) {
   const cardItem = cardTemplate.content.cloneNode(true);
   cardItem.querySelector('.cards__title').textContent = element.name;
-  cardItem.querySelector('.cards__img').alt = element.name;
-  cardItem.querySelector('.cards__img').src = element.link;
+  const cardImage = cardItem.querySelector('.cards__img');
+  cardImage.alt = element.name;
+  cardImage.src = element.link;
   const fullImageCaption = element.name;
   const fullImageLink = element.link;
   cardItem.querySelector('.cards__like-button').addEventListener('click', function (evt) {
@@ -67,13 +50,13 @@ function openPopup(element) {
 }
 
 //close popup on click on x-button
-function closePopupOnClickClose(element) {
+function closePopup(element) {
   element.classList.remove('popup_opened')
 }
 
 //make a card-list from the default array
 function renderInitialListCards() {
-  const cardsList = initialCards.map(makeOneCard);
+  const cardsList = initialCards.map(createCard);
   cardsContainer.append(...cardsList);
 }
 renderInitialListCards();
@@ -81,12 +64,9 @@ renderInitialListCards();
 //make a custom card from the popup-form
 function addNewCard(evt) {
   evt.preventDefault();
-  const nameText = document.querySelector('.popup__form-input_title').value;
-  const linkText = document.querySelector('.popup__form-input_link').value;
-  cardsContainer.prepend(makeOneCard({ name: nameText, link: linkText }));
+  cardsContainer.prepend(createCard({ name: nameText.value, link: linkText.value }));
   closePopupAddCard();
-  document.querySelector('.popup__form-input_title').value = document.querySelector('.popup__form-input_title').placeholder;
-  document.querySelector('.popup__form-input_link').value = document.querySelector('.popup__form-input_link').placeholder;
+  popupAddCardForm.reset();
 }
 
 function openPopupUser() {
@@ -96,14 +76,14 @@ function openPopupUser() {
 }
 
 function closePopupUser() {
-  closePopupOnClickClose(popup);
+  closePopup(popup);
 }
 
 function handleFormUser(evt) {
   evt.preventDefault(); /* prevent auto reload */
   profileUserName.textContent = popupInputName.value;
   profileUserJob.textContent = popupInputJob.value;
-  closePopupOnClickClose(popup);
+  closePopup(popup);
 }
 
 function openPopupAddCard() {
@@ -111,17 +91,11 @@ function openPopupAddCard() {
 }
 
 function closePopupAddCard() {
-  closePopupOnClickClose(popupAddCard);
-}
-
-function openFullImage(evt) {
-  popupFullImage.querySelector('.popup__image-full-pic').src = evt.target.src;
-  popupFullImage.querySelector('.popup__image-full-caption').textContent = evt.target.alt;
-  openPopup(popupFullImage);
+  closePopup(popupAddCard);
 }
 
 function closeFullImage() {
-  closePopupOnClickClose(popupFullImage);
+  closePopup(popupFullImage);
 }
 
 userEditButton.addEventListener('click', openPopupUser);
