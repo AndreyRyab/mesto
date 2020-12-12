@@ -28,6 +28,7 @@
 @import url("../blocks/footer/__copyright/footer__copyright.css");
 @import url("../blocks/popup/popup.css");
 @import url("../blocks/popup/_opened/popup_opened.css");
+@import url("../blocks/popup/_edit-user-profile/popup_edit-user-profile.css");
 @import url("../blocks/popup/_full-image/popup_full-image.css");
 @import url("../blocks/popup/__image-full-container/popup__image-full-container.css");
 @import url("../blocks/popup/__image-full-pic/popup__image-full-pic.css");
