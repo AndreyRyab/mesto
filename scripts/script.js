@@ -1,6 +1,6 @@
 const userEditButton = document.querySelector('.profile__user-button');
 const popupCloseButton = document.querySelector('.popup__close-button');
-const popup = document.querySelector('.popup'); //по ней работают две функции: openPopupUser, closePopupUser
+const popupEditUser = document.querySelector('.popup_edit-user-profile');
 const popupForm = document.querySelector('.popup__form');
 const profileUserName = document.querySelector('.profile__username');
 const profileUserJob = document.querySelector('.profile__about');
@@ -17,11 +17,26 @@ const cardTemplate = document.querySelector('#cards__item-template');
 const nameText = document.querySelector('.popup__form-input_title');
 const linkText = document.querySelector('.popup__form-input_link');
 
+//open popup by adding class popup_opened
+function openPopup(element) {
+  element.classList.add('popup_opened');
+}
+
 function openFullImage(evt) {
-  popupFullImage.querySelector('.popup__image-full-pic').src = evt.target.src;
   popupFullImage.querySelector('.popup__image-full-caption').textContent = evt.target.alt;
-  popupFullImage.querySelector('.popup__image-full-pic').alt = evt.target.alt;
+  const fullImage = popupFullImage.querySelector('.popup__image-full-pic');
+  fullImage.src = evt.target.src;
+  fullImage.alt = evt.target.alt;
   openPopup(popupFullImage);
+}
+
+//close popup on click on x-button
+function closePopup(element) {
+  element.classList.remove('popup_opened')
+}
+
+function closeFullImage() {
+  closePopup(popupFullImage);
 }
 
 //make one card from template, set name-, link-values and listeners for trash-, like-buttons and image
@@ -44,14 +59,8 @@ function createCard(element) {
   return cardItem;
 }
 
-//open popup by adding class popup_opened
-function openPopup(element) {
-  element.classList.add('popup_opened');
-}
-
-//close popup on click on x-button
-function closePopup(element) {
-  element.classList.remove('popup_opened')
+function closePopupAddCard() {
+  closePopup(popupAddCard);
 }
 
 //make a card-list from the default array
@@ -70,32 +79,24 @@ function addNewCard(evt) {
 }
 
 function openPopupUser() {
-  openPopup(popup);
+  openPopup(popupEditUser);
   popupInputName.value = profileUserName.textContent;
   popupInputJob.value = profileUserJob.textContent;
 }
 
 function closePopupUser() {
-  closePopup(popup);
+  closePopup(popupEditUser);
 }
 
 function handleFormUser(evt) {
   evt.preventDefault(); /* prevent auto reload */
   profileUserName.textContent = popupInputName.value;
   profileUserJob.textContent = popupInputJob.value;
-  closePopup(popup);
+  closePopup(popupEditUser);
 }
 
 function openPopupAddCard() {
   openPopup(popupAddCard);
-}
-
-function closePopupAddCard() {
-  closePopup(popupAddCard);
-}
-
-function closeFullImage() {
-  closePopup(popupFullImage);
 }
 
 userEditButton.addEventListener('click', openPopupUser);
