@@ -53,10 +53,10 @@
         <h2 class="popup__form-heading">Редактировать профиль</h2>
         <label class="popup__form-item">
           <input class="popup__form-input popup__form-input_name" name="username" type="text" placeholder="Ваше имя"
-            required>
+            minlength="2" maxlength="40" required>
         </label>
         <label class="popup__form-item">
-          <input class="popup__form-input popup__form-input_job" name="userjob" type="text" placeholder="Ваша профессия"
+          <input class="popup__form-input popup__form-input_job" name="userjob" type="text" placeholder="Ваша профессия" minlength="2" maxlength="200" 
             required>
         </label>
         <button class="popup__form-button" type="submit" value="send">Сохранить</button>
@@ -75,7 +75,7 @@
             required>
         </label>
         <label class="popup__form-item">
-          <input class="popup__form-input popup__form-input_link" name="link" type="text"
+          <input class="popup__form-input popup__form-input_link" name="link" type="url"
             placeholder="Ссылка на картинку" required>
         </label>
         <button class="popup__form-button popup__form-button_add-card" type="submit" value="send">Создать</button>
@@ -104,6 +104,7 @@
     </li>
   </template>
   <script src="./scripts/initial-сards.js"></script>
+  <script src="./scripts/validate.js"></script>
   <script src="./scripts/script.js"></script>
 </body>
 
