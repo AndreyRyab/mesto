@@ -20,6 +20,18 @@ const linkText = document.querySelector('.popup__form-input_link');
 //open popup by adding class popup_opened
 function openPopup(element) {
   element.classList.add('popup_opened');
+  //close-on-click-on-overlay feature:
+  element.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup')) {
+      closePopup(element);
+    }
+  });
+  //close-on-ESC feature:
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closePopup(element);
+    };
+  });
 }
 
 function openFullImage(evt) {
@@ -30,9 +42,8 @@ function openFullImage(evt) {
   openPopup(popupFullImage);
 }
 
-//close popup on click on x-button
 function closePopup(element) {
-  element.classList.remove('popup_opened')
+  element.classList.remove('popup_opened');
 }
 
 function closeFullImage() {
@@ -68,6 +79,7 @@ function renderInitialListCards() {
   const cardsList = initialCards.map(createCard);
   cardsContainer.append(...cardsList);
 }
+
 renderInitialListCards();
 
 //make a custom card from the popup-form
@@ -98,6 +110,7 @@ function handleFormUser(evt) {
 function openPopupAddCard() {
   openPopup(popupAddCard);
 }
+
 
 userEditButton.addEventListener('click', openPopupUser);
 popupCloseButton.addEventListener('click', closePopupUser);
