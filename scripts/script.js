@@ -17,85 +17,21 @@ const cardTemplate = document.querySelector('#cards__item-template');
 const nameText = document.querySelector('.popup__form-input_title');
 const linkText = document.querySelector('.popup__form-input_link');
 
-
-
-//код по вебинару
-
-const formUser = document.querySelector('.popup__form_user');
-
-
-//показывает ошибку
-function showError(form, input) {
-  const error = form.querySelector(`#${input.id}-error`);
-  error.textContent = input.validationMessage;
-  input.classList.add('popup__form-input_type_error');
-};
-
-//скрывает ошибку
-function hideError(form, input) {
-  const error = form.querySelector(`#${input.id}-error`);
-  error.textContent = '';
-  input.classList.remove('popup__form-input_type_error');
-};
-
-//проверяет инпуты на валидность
-function checkInputValidity(form, input) {
-  if (input.validity.valid) {
-    hideError(form, input);
-  } else {
-    showError(form, input);
-  }
-};
-
-function setButtonState(button, isActive) {
-  if (isActive) {
-    button.classList.remove('popup__form-button_disabled');
-    button.disabled = false;
-  } else {
-    button.classList.add('popup__form-button_disabled');
-    button.disabled = true;
-  }
-};
-
-//перебираем нодлист из инпутов и расставляем лиснеры, которые включают текст ошибки и подсвечивают поля
-
-function setEventListener(form) {
-  const inputList = form.querySelectorAll('.popup__form-input');
-  const submitButton = form.querySelector('.popup__form-button');
-  inputList.forEach((input) => {
-    input.addEventListener('input', () => {
-      checkInputValidity(form, input);
-      setButtonState(submitButton, form.checkValidity());
-    });
-  });
-}
-
-function enableValidation() {
-  const forms = document.querySelectorAll('.popup__form');
-  forms.forEach((form) => {
-    setEventListener(form);
-    form.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-  });
-};
-
-enableValidation();
-
-//конец кода по вебинару
-
-
-
-
-
-
-
-
-
-
 //open popup by adding class popup_opened
 function openPopup(element) {
   element.classList.add('popup_opened');
+  //close-on-click-on-overlay feature:
+  element.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup')) {
+      closePopup(element);
+    }
+  });
+  //close-on-ESC feature:
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closePopup(element);
+    };
+  });
 }
 
 function openFullImage(evt) {
@@ -106,9 +42,8 @@ function openFullImage(evt) {
   openPopup(popupFullImage);
 }
 
-//close popup on click on x-button
 function closePopup(element) {
-  element.classList.remove('popup_opened')
+  element.classList.remove('popup_opened');
 }
 
 function closeFullImage() {
@@ -144,6 +79,7 @@ function renderInitialListCards() {
   const cardsList = initialCards.map(createCard);
   cardsContainer.append(...cardsList);
 }
+
 renderInitialListCards();
 
 //make a custom card from the popup-form
@@ -175,14 +111,6 @@ function openPopupAddCard() {
   openPopup(popupAddCard);
 }
 
-
-/* function setClickOnOverlay(popup) {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup')) {
-      closePopup(popup);
-    }
-  });
-} */
 
 userEditButton.addEventListener('click', openPopupUser);
 popupCloseButton.addEventListener('click', closePopupUser);
