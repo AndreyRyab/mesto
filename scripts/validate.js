@@ -36,7 +36,7 @@ function setButtonState(button, isActive, config) {
   }
 };
 
-//check all the input nodelist, set listeners for switching an error text and underlining not valid input
+//check all the input nodelist, set listeners for switching an error text and underlining invalid input
 function setEventListener(form, config) {
   const inputList = form.querySelectorAll(config.inputSelector);
   const submitButton = form.querySelector(config.submitButtonSelector);
@@ -51,10 +51,9 @@ function setEventListener(form, config) {
 function enableValidation(config) {
   const forms = document.querySelectorAll(config.formSelector);
   forms.forEach((form) => {
+    const submitButton = form.querySelector(config.submitButtonSelector);
+    setButtonState(submitButton, form.checkValidity(), config);
     setEventListener(form, config);
-    form.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
   });
 };
 

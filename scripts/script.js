@@ -17,21 +17,39 @@ const cardTemplate = document.querySelector('#cards__item-template');
 const nameText = document.querySelector('.popup__form-input_title');
 const linkText = document.querySelector('.popup__form-input_link');
 
-//open popup by adding class popup_opened
-function openPopup(element) {
-  element.classList.add('popup_opened');
-  //close-on-click-on-overlay feature:
+//set default input value before validation
+popupInputName.value = profileUserName.textContent;
+popupInputJob.value = profileUserJob.textContent;
+
+function closePopup(element) {
+  element.classList.remove('popup_opened');
+}
+
+//Ирина, спасибо большое за помощь и за наводку на свойства лиснеров!
+
+//close-on-click-on-overlay:
+function closePopupOnOverlay(element) {
   element.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup')) {
       closePopup(element);
     }
-  });
-  //close-on-ESC feature:
+  }, { once: true });
+}
+
+//close-on-ESC feature:
+function closePopupOnEsc(element) {
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       closePopup(element);
     };
-  });
+  }, { once: true });
+}
+
+//open popup by adding class popup_opened
+function openPopup(element) {
+  element.classList.add('popup_opened');
+  closePopupOnOverlay(element);
+  closePopupOnEsc(element);
 }
 
 function openFullImage(evt) {
@@ -40,10 +58,6 @@ function openFullImage(evt) {
   fullImage.src = evt.target.src;
   fullImage.alt = evt.target.alt;
   openPopup(popupFullImage);
-}
-
-function closePopup(element) {
-  element.classList.remove('popup_opened');
 }
 
 function closeFullImage() {
@@ -57,8 +71,6 @@ function createCard(element) {
   const cardImage = cardItem.querySelector('.cards__img');
   cardImage.alt = element.name;
   cardImage.src = element.link;
-  const fullImageCaption = element.name;
-  const fullImageLink = element.link;
   cardItem.querySelector('.cards__like-button').addEventListener('click', function (evt) {
     evt.target.classList.toggle('cards__like-button_active');
   });
@@ -92,8 +104,6 @@ function addNewCard(evt) {
 
 function openPopupUser() {
   openPopup(popupEditUser);
-  popupInputName.value = profileUserName.textContent;
-  popupInputJob.value = profileUserJob.textContent;
 }
 
 function closePopupUser() {
