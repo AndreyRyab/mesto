@@ -23,34 +23,26 @@ popupInputJob.value = profileUserJob.textContent;
 
 function closePopup(element) {
   element.classList.remove('popup_opened');
-}
+};
 
-//Ирина, спасибо большое за помощь и за наводку на свойства лиснеров!
+function closePopupOnOverlay(evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt.target);
+  };
+};
 
-//close-on-click-on-overlay:
-function closePopupOnOverlay(element) {
-  element.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup')) {
-      closePopup(element);
-    }
-  }, { once: true });
-}
-
-//close-on-ESC feature:
-function closePopupOnEsc(element) {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      closePopup(element);
-    };
-  }, { once: true });
-}
+function closePopupOnEsc(evt, element) {
+  if (evt.key === 'Escape') {
+    closePopup(element);
+  };
+};
 
 //open popup by adding class popup_opened
 function openPopup(element) {
   element.classList.add('popup_opened');
-  closePopupOnOverlay(element);
-  closePopupOnEsc(element);
-}
+  element.addEventListener('click', closePopupOnOverlay, { once: true });
+  window.addEventListener('keydown', (evt) => { closePopupOnEsc(evt, element) }, { once: true });
+};
 
 function openFullImage(evt) {
   popupFullImage.querySelector('.popup__image-full-caption').textContent = evt.target.alt;
@@ -58,11 +50,11 @@ function openFullImage(evt) {
   fullImage.src = evt.target.src;
   fullImage.alt = evt.target.alt;
   openPopup(popupFullImage);
-}
+};
 
 function closeFullImage() {
   closePopup(popupFullImage);
-}
+};
 
 //make one card from template, set name-, link-values and listeners for trash-, like-buttons and image
 function createCard(element) {
@@ -80,17 +72,18 @@ function createCard(element) {
   });
   cardItem.querySelector('.cards__img').addEventListener('click', openFullImage);
   return cardItem;
-}
+};
 
 function closePopupAddCard() {
   closePopup(popupAddCard);
-}
+  popupAddCardForm.reset();
+};
 
 //make a card-list from the default array
 function renderInitialListCards() {
   const cardsList = initialCards.map(createCard);
   cardsContainer.append(...cardsList);
-}
+};
 
 renderInitialListCards();
 
@@ -100,27 +93,33 @@ function addNewCard(evt) {
   cardsContainer.prepend(createCard({ name: nameText.value, link: linkText.value }));
   closePopupAddCard();
   popupAddCardForm.reset();
-}
+};
 
 function openPopupUser() {
   openPopup(popupEditUser);
-}
+};
 
 function closePopupUser() {
   closePopup(popupEditUser);
-}
+};
 
 function handleFormUser(evt) {
   evt.preventDefault(); /* prevent auto reload */
   profileUserName.textContent = popupInputName.value;
   profileUserJob.textContent = popupInputJob.value;
   closePopup(popupEditUser);
-}
+};
+
+//disabling button by default:
+function disableButton(element) {
+  const button = element.querySelector('.popup__form-button');
+  button.classList.add('popup__form-button_disabled');
+};
 
 function openPopupAddCard() {
   openPopup(popupAddCard);
-}
-
+  disableButton(popupAddCard);
+};
 
 userEditButton.addEventListener('click', openPopupUser);
 popupCloseButton.addEventListener('click', closePopupUser);
