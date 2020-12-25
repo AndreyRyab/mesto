@@ -46,7 +46,7 @@ function setEventListener(form, config) {
       setButtonState(submitButton, form.checkValidity(), config);
     });
   });
-}
+};
 
 function enableValidation(config) {
   const forms = document.querySelectorAll(config.formSelector);
