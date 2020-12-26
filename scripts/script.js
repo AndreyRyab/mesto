@@ -17,10 +17,6 @@ const cardTemplate = document.querySelector('#cards__item-template');
 const nameText = document.querySelector('.popup__form-input_title');
 const linkText = document.querySelector('.popup__form-input_link');
 
-//set default input value before validation
-popupInputName.value = profileUserName.textContent;
-popupInputJob.value = profileUserJob.textContent;
-
 function closePopup(element) {
   element.classList.remove('popup_opened');
 };
@@ -76,7 +72,6 @@ function createCard(element) {
 
 function closePopupAddCard() {
   closePopup(popupAddCard);
-  popupAddCardForm.reset();
 };
 
 //make a card-list from the default array
@@ -96,6 +91,8 @@ function addNewCard(evt) {
 };
 
 function openPopupUser() {
+  popupInputName.value = profileUserName.textContent;
+  popupInputJob.value = profileUserJob.textContent;
   openPopup(popupEditUser);
 };
 
@@ -119,6 +116,7 @@ function disableButton(element) {
 function openPopupAddCard() {
   openPopup(popupAddCard);
   disableButton(popupAddCard);
+  popupAddCardForm.reset();
 };
 
 userEditButton.addEventListener('click', openPopupUser);
