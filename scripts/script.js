@@ -19,6 +19,8 @@ const linkText = document.querySelector('.popup__form-input_link');
 
 function closePopup(element) {
   element.classList.remove('popup_opened');
+  element.removeEventListener('click', closePopupOnOverlay);
+  document.removeEventListener('keydown', closePopupOnEsc);
 };
 
 function closePopupOnOverlay(evt) {
@@ -27,17 +29,16 @@ function closePopupOnOverlay(evt) {
   };
 };
 
-function closePopupOnEsc(evt, element) {
+function closePopupOnEsc(evt) {
   if (evt.key === 'Escape') {
-    closePopup(element);
-  };
+    closePopup(document.querySelector('.popup_opened'));
+  }
 };
 
-//open popup by adding class popup_opened
 function openPopup(element) {
   element.classList.add('popup_opened');
-  element.addEventListener('click', closePopupOnOverlay, { once: true });
-  window.addEventListener('keydown', (evt) => { closePopupOnEsc(evt, element) }, { once: true });
+  element.addEventListener('click', closePopupOnOverlay);
+  document.addEventListener('keydown', closePopupOnEsc);
 };
 
 function openFullImage(evt) {
