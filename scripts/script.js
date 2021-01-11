@@ -41,7 +41,7 @@ function openPopup(element) {
   document.addEventListener('keydown', closePopupOnEsc);
 };
 
-function openFullImage(evt) {
+export function openFullImage(evt) {
   popupFullImage.querySelector('.popup__image-full-caption').textContent = evt.target.alt;
   const fullImage = popupFullImage.querySelector('.popup__image-full-pic');
   fullImage.src = evt.target.src;
