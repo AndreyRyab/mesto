@@ -1,4 +1,4 @@
-import openFullImage from './script.js';
+import openFullImage from './index.js';
 
 export class Card {
   constructor(data, cardSelector) {
