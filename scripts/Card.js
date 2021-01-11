@@ -1,9 +1,9 @@
-import openFullImage from './script';
+import openFullImage from './script.js';
 
-class Card {
+export class Card {
   constructor(data, cardSelector) {
-    this._title = data.title;
-    this._image = data.image;
+    this._title = data.name;
+    this._image = data.link;
     this._cardSelector = cardSelector;
   }
 
@@ -31,16 +31,23 @@ class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.cards__like-button').addEventListener('click', (evt) => {
-      evt.target.classList.toggle('cards__like-button_active');
-    });
+    this._element.querySelector('.cards__like-button').addEventListener('click', this._handleLikeButton);
 
-    this._element.querySelector('.cards__trash-button').addEventListener('click', (evt) => {
-      const targetItem = evt.target.closest('.cards__item');
-      targetItem.remove();
-    });
+    this._element.querySelector('.cards__trash-button').addEventListener('click', this._handleTrashButton);
 
-    this._element.querySelector('.cards__img').addEventListener('click', openFullImage);
+    this._element.querySelector('.cards__img').addEventListener('click', this._handleFullImage);
+  }
+
+  _handleLikeButton() {
+    this.classList.toggle('cards__like-button_active');
+  }
+
+  _handleTrashButton() {
+    this.closest('.cards__item').remove();
+  }
+
+  _handleFullImage(evt) {
+    openFullImage(evt);
   }
 
 }
