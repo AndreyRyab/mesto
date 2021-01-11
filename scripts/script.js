@@ -41,7 +41,7 @@ function openPopup(element) {
   document.addEventListener('keydown', closePopupOnEsc);
 };
 
-export function openFullImage(evt) {
+export default function openFullImage(evt) {
   popupFullImage.querySelector('.popup__image-full-caption').textContent = evt.target.alt;
   const fullImage = popupFullImage.querySelector('.popup__image-full-pic');
   fullImage.src = evt.target.src;
@@ -54,7 +54,7 @@ function closeFullImage() {
 };
 
 //make one card from template, set name-, link-values and listeners for trash-, like-buttons and image
-function createCard(element) {
+/* function createCard(element) {
   const cardItem = cardTemplate.content.cloneNode(true);
   cardItem.querySelector('.cards__title').textContent = element.name;
   const cardImage = cardItem.querySelector('.cards__img');
@@ -69,17 +69,32 @@ function createCard(element) {
   });
   cardItem.querySelector('.cards__img').addEventListener('click', openFullImage);
   return cardItem;
-};
+}; */
+
+import { initialCards } from './initial-сards.js';
+import { Card } from './Card.js';
+
+//!!! make list of cards from array with class Card
+function renderInitialListCards() {
+  initialCards.forEach((item) => {
+    const card = new Card(item, '#cards__item-template');
+    const cardElement = card.generateCard();
+    cardsContainer.append(cardElement);
+  });
+}
+
+
 
 function closePopupAddCard() {
   closePopup(popupAddCard);
 };
 
 //make a card-list from the default array
-function renderInitialListCards() {
+/* function renderInitialListCards() {
   const cardsList = initialCards.map(createCard);
   cardsContainer.append(...cardsList);
-};
+}; */
+
 
 renderInitialListCards();
 

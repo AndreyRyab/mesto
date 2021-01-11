@@ -1,9 +1,9 @@
-import openFullImage from './script';
+import openFullImage from './script.js';
 
-class Card {
+export class Card {
   constructor(data, cardSelector) {
-    this._title = data.title;
-    this._image = data.image;
+    this._title = data.name;
+    this._image = data.link;
     this._cardSelector = cardSelector;
   }
 
@@ -31,16 +31,27 @@ class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.cards__like-button').addEventListener('click', (evt) => {
+    this._element.querySelector('.cards__like-button').addEventListener('click', function (evt) {
       evt.target.classList.toggle('cards__like-button_active');
-    });
-
-    this._element.querySelector('.cards__trash-button').addEventListener('click', (evt) => {
+    })/* ('click', this._handleLikeButton) */;
+    this._element.querySelector('.cards__trash-button').addEventListener('click', function (evt) {
       const targetItem = evt.target.closest('.cards__item');
       targetItem.remove();
-    });
-
+    });/* ('click', _handleTrashButton); */
+    /* this._element.querySelector('.cards__img').addEventListener('click', _handleFullImage); */
     this._element.querySelector('.cards__img').addEventListener('click', openFullImage);
+  }
+
+ /*  _handleLikeButton() {
+    this._element.classList.toggle('cards__like-button_active');
+  } */
+
+ /*  _handleTrashButton() {
+    this._element.closest('.cards__item').remove();
+  } */
+
+  _handleFullImage() {
+    openFullImage(evt);
   }
 
 }
