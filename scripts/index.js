@@ -1,4 +1,4 @@
-export const initialCards = [
+const initialCards = [
   {
     name: 'Эльбрус',
     link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-elbrus-xl.jpg'
@@ -25,7 +25,7 @@ export const initialCards = [
   }
 ];
 
-export const validationConfig = {
+const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__form-input',
   submitButtonSelector: '.popup__form-button',
@@ -100,7 +100,7 @@ function openPopupAddCard() {
   popupAddCardForm.reset();
 };
 
-import { Card } from './Card.js';
+import Card from './Card.js';
 
 //make one card from Card class with some data
 function createCard(data) {
@@ -126,7 +126,7 @@ function addNewCard(evt) {
   popupAddCardForm.reset();
 };
 
-import { FormValidator } from './FormValidator.js';
+import FormValidator from './FormValidator.js';
 
 (function setValidators () {
   const formsList = document.querySelectorAll('.popup__form');
