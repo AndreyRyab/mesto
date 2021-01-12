@@ -1,6 +1,6 @@
 import openFullImage from './index.js';
 
-export class Card {
+export default class Card {
   constructor(data, cardSelector) {
     this._title = data.name;
     this._image = data.link;
