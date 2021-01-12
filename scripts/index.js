@@ -25,6 +25,14 @@ export const initialCards = [
   }
 ];
 
+export const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__form-input',
+  submitButtonSelector: '.popup__form-button',
+  inactiveButtonClass: 'popup__form-button_disabled',
+  inputErrorClass: 'popup__form-input_type_error',
+};
+
 const userEditButton = document.querySelector('.profile__user-button');
 const popupCloseButton = document.querySelector('.popup__close-button');
 const popupEditUser = document.querySelector('.popup_edit-user-profile');
@@ -117,6 +125,16 @@ function addNewCard(evt) {
   closePopup(popupAddCard);
   popupAddCardForm.reset();
 };
+
+import { FormValidator } from './FormValidator.js';
+
+(function setValidators () {
+  const formsList = document.querySelectorAll('.popup__form');
+  formsList.forEach((form) => {
+    const formValidator = new FormValidator(validationConfig, form);
+    formValidator.enableValidation(form);
+  });
+})()
 
 popupForm.addEventListener('submit', handleFormUser);
 popupAddCardForm.addEventListener('submit', addNewCard);
