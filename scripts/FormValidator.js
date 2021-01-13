@@ -9,45 +9,50 @@ export default class FormValidator {
   }
 
   //check all the input nodelist, set listeners for switching an error text and underlining invalid input
-  enableValidation(form) {
-    const inputList = form.querySelectorAll(this._inputSelector);
-    const submitButton = form.querySelector(this._submitButtonSelector);
-    inputList.forEach((input) => {
+  enableValidation() {
+    const submitButton = this._form.querySelector(this._submitButtonSelector);
+    this._setButtonState(submitButton, this._form.checkValidity());
+    const inputList = this._form.querySelectorAll(this._inputSelector);
+    Array.from(inputList).forEach((input) => {
       input.addEventListener('input', () => {
-        this._checkInputValidity(form, input);
-        this._setButtonState(submitButton, form.checkValidity());
+        this._checkInputValidity(input);
+        this._setButtonState(submitButton, this._form.checkValidity());
       });
     });
   };
 
-  _checkInputValidity(form, input) {
+  _checkInputValidity(input) {
     if (input.validity.valid) {
-      this._hideError(form, input);
+      this._hideError(input);
     } else {
-      this._showError(form, input);
+      this._showError(input);
     }
   };
 
-  _showError(form, input) {
-    const error = form.querySelector(`#${input.id}-error`);
+  _showError(input) {
+    const error = this._form.querySelector(`#${input.id}-error`);
     error.textContent = input.validationMessage;
     input.classList.add(this._inputErrorClass);
   };
 
-  _hideError(form, input) {
-    const error = form.querySelector(`#${input.id}-error`);
+  _hideError(input) {
+    const error = this._form.querySelector(`#${input.id}-error`);
     error.textContent = '';
     input.classList.remove(this._inputErrorClass);
   };
 
-  _setButtonState(button, isActive) {
-    if (isActive) {
-      button.classList.remove(this._inactiveButtonClass);
+  _setButtonState(button, valid) {
+    if (valid) {
+      button.classList.remove('popup__form-button_disabled');
       button.disabled = false;
     } else {
-      button.classList.add(this._inactiveButtonClass);
+      button.classList.add('popup__form-button_disabled');
       button.disabled = true;
     }
   };
+
+/*   _desableSubmitButton (form) {
+    form.querySelector('.popup__form-button').classList.add('popup__form-button_disabled');
+  } */
 
 }

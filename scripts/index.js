@@ -1,29 +1,6 @@
-const initialCards = [
-  {
-    name: 'Эльбрус',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-elbrus-xl.jpg'
-  },
-  {
-    name: 'Красная поляна',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-polyana-xl.jpg'
-  },
-  {
-    name: 'Чегет',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-cheget-xl.jpg'
-  },
-  {
-    name: 'Карелия',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-karelia-xl.jpg'
-  },
-  {
-    name: 'Ладожское озеро',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-ladoga-xl.jpg'
-  },
-  {
-    name: 'Кондуки',
-    link: 'https://dezzzign.ru/wp-content/uploads/2020/12/mesto-konduki-xl.jpg'
-  }
-];
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import { initialCards } from './initialCards.js';
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -36,18 +13,22 @@ const validationConfig = {
 const userEditButton = document.querySelector('.profile__user-button');
 const popupCloseButton = document.querySelector('.popup__close-button');
 const popupEditUser = document.querySelector('.popup_edit-user-profile');
-const popupForm = document.querySelector('.popup__form');
 const profileUserName = document.querySelector('.profile__username');
 const profileUserJob = document.querySelector('.profile__about');
 const popupInputName = document.querySelector('.popup__form-input_name');
 const popupInputJob = document.querySelector('.popup__form-input_job');
 const popupAddCard = document.querySelector('.popup_add-card');
 const popupAddCardForm = popupAddCard.querySelector('.popup__form_add-card');
+const popupEditUserForm = popupEditUser.querySelector('.popup__form_user');
 const cardAddButton = document.querySelector('.profile__add-button');
 const popupAddCardCloseButton = popupAddCard.querySelector('.popup__close-button');
 const cardsContainer = document.querySelector('.cards__container');
 const popupFullImage = document.querySelector('.popup_full-image');
 const closeButtonFullImage = popupFullImage.querySelector('.popup__close-button_full-image');
+const nameText = document.querySelector('.popup__form-input_title');
+const linkText = document.querySelector('.popup__form-input_link');
+const cardTemplate = '#cards__item-template';
+const fullImage = popupFullImage.querySelector('.popup__image-full-pic');
 
 function openPopup(element) {
   element.classList.add('popup_opened');
@@ -75,16 +56,15 @@ function closePopupOnEsc(evt) {
 
 export default function openFullImage(evt) {
   popupFullImage.querySelector('.popup__image-full-caption').textContent = evt.target.alt;
-  const fullImage = popupFullImage.querySelector('.popup__image-full-pic');
   fullImage.src = evt.target.src;
   fullImage.alt = evt.target.alt;
   openPopup(popupFullImage);
 };
 
 function openPopupUser() {
+  openPopup(popupEditUser);
   popupInputName.value = profileUserName.textContent;
   popupInputJob.value = profileUserJob.textContent;
-  openPopup(popupEditUser);
 };
 
 function handleFormUser(evt) {
@@ -95,48 +75,44 @@ function handleFormUser(evt) {
 };
 
 function openPopupAddCard() {
-  openPopup(popupAddCard);
-  popupAddCard.querySelector('.popup__form-button').classList.add('popup__form-button_disabled');
   popupAddCardForm.reset();
+  openPopup(popupAddCard);
 };
-
-import Card from './Card.js';
 
 //make one card from Card class with some data
 function createCard(data) {
-  const card = new Card(data, '#cards__item-template');
+  const card = new Card(data, cardTemplate);
   const cardElement = card.generateCard();
   return cardElement;
 }
 
 //make a list of cards from default array
-(function renderInitialListCards() {
-  initialCards.forEach((item) => {
-    cardsContainer.append(createCard(item));
+function renderInitialListCards(data, container) {
+  data.forEach((item) => {
+    container.append(createCard(item));
   });
-})()
+}
+
+renderInitialListCards(initialCards, cardsContainer);
 
 //make a custom card from the popup-form
 function addNewCard(evt) {
   evt.preventDefault();
-  const nameText = document.querySelector('.popup__form-input_title');
-  const linkText = document.querySelector('.popup__form-input_link');
   cardsContainer.prepend(createCard({ name: nameText.value, link: linkText.value }));
   closePopup(popupAddCard);
-  popupAddCardForm.reset();
 };
 
-import FormValidator from './FormValidator.js';
-
-(function setValidators () {
+function setValidators() {
   const formsList = document.querySelectorAll('.popup__form');
-  formsList.forEach((form) => {
+  Array.from(formsList).forEach((form) => {
     const formValidator = new FormValidator(validationConfig, form);
     formValidator.enableValidation(form);
   });
-})()
+}
 
-popupForm.addEventListener('submit', handleFormUser);
+setValidators();
+
+popupEditUserForm.addEventListener('submit', handleFormUser);
 popupAddCardForm.addEventListener('submit', addNewCard);
 cardAddButton.addEventListener('click', openPopupAddCard);
 userEditButton.addEventListener('click', openPopupUser);
