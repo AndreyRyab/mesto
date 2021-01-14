@@ -1,4 +1,4 @@
-import openFullImage from './index.js';
+import openFullImage from './utils.js';
 
 export default class Card {
   constructor(data, cardSelector) {
@@ -43,11 +43,12 @@ export default class Card {
   }
 
   _handleTrashButton(evt) {
-    evt.target.closest('.cards__item').remove();
+    let deletedCard = evt.target.closest('.cards__item');
+    deletedCard.remove();
+    deletedCard = null;
   }
 
   _handleFullImage(evt) {
     openFullImage(evt);
   }
-
 }

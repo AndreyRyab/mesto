@@ -8,6 +8,8 @@ const validationConfig = {
   submitButtonSelector: '.popup__form-button',
   inactiveButtonClass: 'popup__form-button_disabled',
   inputErrorClass: 'popup__form-input_type_error',
+  errorElement: '.popup__error',
+  errorVisibility: 'popup__error_visible'
 };
 
 const userEditButton = document.querySelector('.profile__user-button');
@@ -23,61 +25,59 @@ const popupEditUserForm = popupEditUser.querySelector('.popup__form_user');
 const cardAddButton = document.querySelector('.profile__add-button');
 const popupAddCardCloseButton = popupAddCard.querySelector('.popup__close-button');
 const cardsContainer = document.querySelector('.cards__container');
-const popupFullImage = document.querySelector('.popup_full-image');
+export const popupFullImage = document.querySelector('.popup_full-image');
 const closeButtonFullImage = popupFullImage.querySelector('.popup__close-button_full-image');
 const nameText = document.querySelector('.popup__form-input_title');
 const linkText = document.querySelector('.popup__form-input_link');
 const cardTemplate = '#cards__item-template';
-const fullImage = popupFullImage.querySelector('.popup__image-full-pic');
+export const fullImage = popupFullImage.querySelector('.popup__image-full-pic');
+export const fullImageCaption = popupFullImage.querySelector('.popup__image-full-caption')
 
-function openPopup(element) {
+export function openPopup(element) {
   element.classList.add('popup_opened');
   element.addEventListener('click', closePopupOnOverlay);
   document.addEventListener('keydown', closePopupOnEsc);
-};
+}
 
 function closePopup(element) {
   element.classList.remove('popup_opened');
   element.removeEventListener('click', closePopupOnOverlay);
   document.removeEventListener('keydown', closePopupOnEsc);
-};
+}
 
 function closePopupOnOverlay(evt) {
   if (evt.target.classList.contains('popup')) {
     closePopup(evt.target);
   };
-};
+}
 
 function closePopupOnEsc(evt) {
   if (evt.key === 'Escape') {
-    closePopup(document.querySelector('.popup_opened'));
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
   }
-};
-
-export default function openFullImage(evt) {
-  popupFullImage.querySelector('.popup__image-full-caption').textContent = evt.target.alt;
-  fullImage.src = evt.target.src;
-  fullImage.alt = evt.target.alt;
-  openPopup(popupFullImage);
-};
+}
 
 function openPopupUser() {
+  popupEditUserForm.reset();
   openPopup(popupEditUser);
   popupInputName.value = profileUserName.textContent;
   popupInputJob.value = profileUserJob.textContent;
-};
+  setValidators(popupEditUser);
+}
 
 function handleFormUser(evt) {
   evt.preventDefault(); /* prevent auto reload */
   profileUserName.textContent = popupInputName.value;
   profileUserJob.textContent = popupInputJob.value;
   closePopup(popupEditUser);
-};
+}
 
 function openPopupAddCard() {
   popupAddCardForm.reset();
   openPopup(popupAddCard);
-};
+  setValidators(popupAddCard);
+}
 
 //make one card from Card class with some data
 function createCard(data) {
@@ -100,17 +100,23 @@ function addNewCard(evt) {
   evt.preventDefault();
   cardsContainer.prepend(createCard({ name: nameText.value, link: linkText.value }));
   closePopup(popupAddCard);
-};
+  popupAddCardForm.reset();
+}
 
-function setValidators() {
-  const formsList = document.querySelectorAll('.popup__form');
+//enable validation for each popup opening
+function setValidators(popup) {
+  const form = popup.querySelector(validationConfig.formSelector);
+  const formValidator = new FormValidator(validationConfig, form);
+  formValidator.enableValidation();
+
+  //enable validation after rendering the page. That doesn't work for us, because we need to check validity every time we open a popup:
+
+  /* const formsList = document.querySelectorAll('.popup__form');
   Array.from(formsList).forEach((form) => {
     const formValidator = new FormValidator(validationConfig, form);
     formValidator.enableValidation(form);
-  });
+  }); */
 }
-
-setValidators();
 
 popupEditUserForm.addEventListener('submit', handleFormUser);
 popupAddCardForm.addEventListener('submit', addNewCard);
