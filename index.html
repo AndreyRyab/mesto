@@ -54,12 +54,12 @@
         <label class="popup__form-item">
           <input class="popup__form-input popup__form-input_name" id="input-name" name="username" type="text"
             placeholder="Ваше имя" minlength="2" maxlength="40" required>
-          <span class="popup__error" id="input-name-error"></span>
+          <span class="popup__error popup__error_visible" id="input-name-error"></span>
         </label>
         <label class="popup__form-item">
           <input class="popup__form-input popup__form-input_job" id="input-job" name="userjob" type="text"
             placeholder="Ваша профессия" minlength="2" maxlength="200" required>
-          <span class="popup__error" id="input-job-error"></span>
+          <span class="popup__error popup__error_visible" id="input-job-error"></span>
         </label>
         <button class="popup__form-button" type="submit" value="send">Сохранить</button>
       </form>
@@ -75,12 +75,12 @@
         <label class="popup__form-item">
           <input class="popup__form-input popup__form-input_title" id="input-title" name="title" type="text"
             minlength="2" maxlength="30" placeholder="Название" required>
-          <span class="popup__error" id="input-title-error"></span>
+          <span class="popup__error popup__error_visible" id="input-title-error"></span>
         </label>
         <label class="popup__form-item">
           <input class="popup__form-input popup__form-input_link" id="input-link" name="link" type="url"
             placeholder="Ссылка на картинку" required>
-          <span class="popup__error" id="input-link-error"></span>
+          <span class="popup__error popup__error_visible" id="input-link-error"></span>
         </label>
         <button class="popup__form-button popup__form-button_add-card" type="submit" value="send">Создать</button>
       </form>
@@ -110,6 +110,9 @@
   <script type="module" src="./scripts/index.js"></script>
   <script type="module" src="./scripts/Card.js"></script>
   <script type="module" src="./scripts/FormValidator.js"></script>
+  <script type="module" src="./scripts/initialCards.js"></script>
+  <script type="module" src="./scripts/utils.js"></script>
+
 
 </body>
 
