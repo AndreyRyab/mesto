@@ -1,4 +1,4 @@
-import openFullImage from './index.js';
+import openFullImage from './utils.js';
 
 export default class Card {
   constructor(data, cardSelector) {
@@ -38,16 +38,17 @@ export default class Card {
     this._element.querySelector('.cards__img').addEventListener('click', this._handleFullImage);
   }
 
-  _handleLikeButton() {
-    this.classList.toggle('cards__like-button_active');
+  _handleLikeButton(evt) {
+    evt.target.classList.toggle('cards__like-button_active');
   }
 
-  _handleTrashButton() {
-    this.closest('.cards__item').remove();
+  _handleTrashButton(evt) {
+    let deletedCard = evt.target.closest('.cards__item');
+    deletedCard.remove();
+    deletedCard = null;
   }
 
   _handleFullImage(evt) {
     openFullImage(evt);
   }
-
 }
