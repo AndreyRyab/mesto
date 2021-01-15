@@ -55,8 +55,8 @@ export default class FormValidator {
   }
 
   _setButtonState() {
-    const formValidity = this._form.checkValidity();
-    if (formValidity === true) {
+    let formValidity = this._form.checkValidity();
+    if (formValidity) {
       this._buttonElement.classList.remove(this._inactiveButtonClass);
       this._buttonElement.disabled = false;
     } else {
