@@ -1,3 +1,6 @@
+//Олег, спасибо за помощь! Увы, не получается сделать, как вы советовали: чтобы валидаторы создавались только один раз, а потом был resetValidation() по открытию попапов. Не понимаю, как из двух существующих валидаторов найти нужный, чтобы на нём сделать resetValidation(). Слишком долго над этим уже сижу. Может, через несколько дней придёт понимание.
+
+
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import { initialCards } from './initialCards.js';
@@ -31,7 +34,7 @@ const nameText = document.querySelector('.popup__form-input_title');
 const linkText = document.querySelector('.popup__form-input_link');
 const cardTemplate = '#cards__item-template';
 export const fullImage = popupFullImage.querySelector('.popup__image-full-pic');
-export const fullImageCaption = popupFullImage.querySelector('.popup__image-full-caption')
+export const fullImageCaption = popupFullImage.querySelector('.popup__image-full-caption');
 
 export function openPopup(element) {
   element.classList.add('popup_opened');
@@ -63,59 +66,50 @@ function openPopupUser() {
   openPopup(popupEditUser);
   popupInputName.value = profileUserName.textContent;
   popupInputJob.value = profileUserJob.textContent;
-  setValidators(popupEditUser);
+  setValidators(popupEditUserForm);
 }
 
 function handleFormUser(evt) {
   evt.preventDefault(); /* prevent auto reload */
-  profileUserName.textContent = popupInputName.value;
-  profileUserJob.textContent = popupInputJob.value;
-  closePopup(popupEditUser);
+profileUserName.textContent = popupInputName.value;
+profileUserJob.textContent = popupInputJob.value;
+closePopup(popupEditUser);
 }
 
 function openPopupAddCard() {
-  popupAddCardForm.reset();
-  openPopup(popupAddCard);
-  setValidators(popupAddCard);
+popupAddCardForm.reset();
+openPopup(popupAddCard);
+setValidators(popupAddCardForm);
 }
 
 //make one card from Card class with some data
 function createCard(data) {
-  const card = new Card(data, cardTemplate);
-  const cardElement = card.generateCard();
-  return cardElement;
+const card = new Card(data, cardTemplate);
+const cardElement = card.generateCard();
+return cardElement;
 }
 
 //make a list of cards from default array
 function renderInitialListCards(data, container) {
-  data.forEach((item) => {
-    container.append(createCard(item));
-  });
+data.forEach((item) => {
+  container.append(createCard(item));
+});
 }
 
 renderInitialListCards(initialCards, cardsContainer);
 
 //make a custom card from the popup-form
 function addNewCard(evt) {
-  evt.preventDefault();
-  cardsContainer.prepend(createCard({ name: nameText.value, link: linkText.value }));
-  closePopup(popupAddCard);
-  popupAddCardForm.reset();
+evt.preventDefault();
+cardsContainer.prepend(createCard({ name: nameText.value, link: linkText.value }));
+closePopup(popupAddCard);
+popupAddCardForm.reset();
 }
 
 //enable validation for each popup opening
-function setValidators(popup) {
-  const form = popup.querySelector(validationConfig.formSelector);
-  const formValidator = new FormValidator(validationConfig, form);
-  formValidator.enableValidation();
-
-  //enable validation after rendering the page. That doesn't work for us, because we need to check validity every time we open a popup:
-
-  /* const formsList = document.querySelectorAll('.popup__form');
-  Array.from(formsList).forEach((form) => {
-    const formValidator = new FormValidator(validationConfig, form);
-    formValidator.enableValidation(form);
-  }); */
+function setValidators(form) {
+const formValidator = new FormValidator(validationConfig, form);
+formValidator.enableValidation();
 }
 
 popupEditUserForm.addEventListener('submit', handleFormUser);
@@ -125,3 +119,4 @@ userEditButton.addEventListener('click', openPopupUser);
 popupCloseButton.addEventListener('click', () => closePopup(popupEditUser));
 popupAddCardCloseButton.addEventListener('click', () => closePopup(popupAddCard));
 closeButtonFullImage.addEventListener('click', () => closePopup(popupFullImage));
+
