@@ -1,6 +1,7 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import { initialCards } from './initialCards.js';
+import PopupWithForm from './PopupWithForm.js';
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -19,8 +20,8 @@ const popupEditUser = document.querySelector('.popup_edit-user-profile');
 const popupAddCard = document.querySelector('.popup_add-card');
 export const popupFullImage = document.querySelector('.popup_full-image');
 
-const profileUserName = document.querySelector('.profile__username');
-const profileUserJob = document.querySelector('.profile__about');
+export const profileUserName = document.querySelector('.profile__username');
+export const profileUserJob = document.querySelector('.profile__about');
 const popupInputName = document.querySelector('.popup__form-input_name');
 const popupInputJob = document.querySelector('.popup__form-input_job');
 const popupAddCardForm = popupAddCard.querySelector('.popup__form_add-card');
@@ -118,6 +119,17 @@ const cardList = new Section({
 
 /* import Section from './Popup.js'; */
 
+
+/* import PopupWithImage from './PopupWithImage.js'; */
+
+/* function handleCardClick(evt) {
+  const popupFullImageOpened = new PopupWithImage('.popup_full-image');
+  popupFullImageOpened.open(evt);
+} */
+
+
+
+
 renderInitialListCards(initialCards, cardsContainer);
 
 //make a custom card from the popup-form
@@ -137,6 +149,16 @@ function setValidators(form) {
 popupEditUserForm.addEventListener('submit', handleFormUser);
 popupAddCardForm.addEventListener('submit', addNewCard);
 cardAddButton.addEventListener('click', openPopupAddCard);
+
+/* cardAddButton.addEventListener('click', () => {
+  const popupOpened = new PopupWithForm('.popup_add-card', (evt) => {
+    evt.preventDefault();
+   
+  })
+}); */
+
+/* userEditButton.addEventListener('click', () => );
+ */
 userEditButton.addEventListener('click', openPopupUser);
 popupCloseButton.addEventListener('click', () => closePopup(popupEditUser));
 popupAddCardCloseButton.addEventListener('click', () => closePopup(popupAddCard));
