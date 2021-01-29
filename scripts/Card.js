@@ -1,10 +1,11 @@
 import openFullImage from './utils.js';
 
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleCardClick) {
     this._title = data.name;
     this._image = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   //make an empty card-tempate
@@ -48,7 +49,12 @@ export default class Card {
     deletedCard = null;
   }
 
-  _handleFullImage(evt) {
+  /* _handleFullImage(evt) {
     openFullImage(evt);
+  } */
+
+  _handleFullImage(evt) {
+    this._handleCardClick(evt);
   }
+
 }
