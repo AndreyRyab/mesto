@@ -1,4 +1,4 @@
-import openFullImage from './utils.js';
+import handleCardClick from './utils.js';
 
 export default class Card {
   constructor(data, cardSelector, handleCardClick) {
@@ -15,7 +15,7 @@ export default class Card {
       .content
       .querySelector('.cards__item')
       .cloneNode(true);
-
+ 
     return cardElement;
   }
 
@@ -44,17 +44,20 @@ export default class Card {
   }
 
   _handleTrashButton(evt) {
-    let deletedCard = evt.target.closest('.cards__item');
+    let deletedCard = evt.target.closest('.cards__item'); //тут надо проверить на const
     deletedCard.remove();
     deletedCard = null;
   }
 
-  /* _handleFullImage(evt) {
-    openFullImage(evt);
-  } */
-
+/*   было
   _handleFullImage(evt) {
-    this._handleCardClick(evt);
+    openFullImage(evt);
+  }
+ */
+
+  //стало
+  _handleFullImage(evt) {
+    handleCardClick(evt);
   }
 
 }

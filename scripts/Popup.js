@@ -10,23 +10,23 @@ export default class Popup {
 
   close() {
     this._popup.classList.remove('popup_opened');
-    this._popupCloseButton.removeEventListener('click', () => close());
+    this._popupCloseButton.removeEventListener('click', () => this.close());
   }
 
   _handleEscClose(evt) {
     if (evt.key === 'Escape') {
-      close();
+      this.close();
     }
   }
 
   _handleOverlayClose(evt) {
     if (evt.target.classList.contains('popup')) {
-      close();
+      this.close();
     };
   }
 
   setEventListeners() {
-    this._popupCloseButton.addEventListener('click', () => close());
+    this._popupCloseButton.addEventListener('click', () => this.close());
   }
 
 }
