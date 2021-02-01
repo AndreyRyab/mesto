@@ -1,7 +1,7 @@
 import handleCardClick from './utils.js';
 
 export default class Card {
-  constructor(data, cardSelector, handleCardClick) {
+  constructor( data, cardSelector, handleCardClick) {
     this._title = data.name;
     this._image = data.link;
     this._cardSelector = cardSelector;
