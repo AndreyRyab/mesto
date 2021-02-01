@@ -161,20 +161,22 @@ import { initialCards } from './initialCards.js';
 
 
 //render initial card-list >>>>>>>
+
 import handleCardClick from './utils.js';
 
-const cardList = new Section({
-  initialCards,
+const newSection = new Section({
+  items: initialCards,
   renderer: (item) => {
     const card = new Card(item, '#cards__item-template', handleCardClick);
 
     const cardElement = card.generateCard();
 
-    return cardElement;
+    newSection.addItem(cardElement);
   },
 }, '.cards__container');
 
-cardList.renderList().forEach((item => item.addItem(item)));
+newSection.renderList()
+
 //<<<<<< render initial list
 
 
@@ -188,9 +190,7 @@ cardAddButton.addEventListener('click', () => {
         renderer: (item) => {
           const card = new Card(item, '#cards__item-template', handleCardClick);
 
-          const cardElement = card.generateCard();
-
-          return cardElement;
+          card.generateCard();
         }
       },
       '.cards__container');
@@ -203,7 +203,7 @@ cardAddButton.addEventListener('click', () => {
   setValidators(popup.form);
   popup.open();
   popup.setEventListeners();
-  
+
 });
 //<<<<<< push the button to add a card
 
