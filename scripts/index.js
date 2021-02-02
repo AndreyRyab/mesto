@@ -1,4 +1,5 @@
 import Card from './Card.js';
+import Popup from './Popup.js';
 import FormValidator from './FormValidator.js';
 import { initialCards } from './initialCards.js';
 import PopupWithForm from './PopupWithForm.js';
@@ -38,8 +39,8 @@ const popupEditUserForm = popupEditUser.querySelector('.popup__form_user'); */
 const cardAddButton = document.querySelector('.profile__add-button');
 /* const popupAddCardCloseButton = popupAddCard.querySelector('.popup__close-button');
  */
-const popupAddCardForm = document.querySelector('.popup__form_add-card');
-
+/* const popupAddCardForm = document.querySelector('.popup__form_add-card');
+ */
 /*  const cardsContainer = document.querySelector('.cards__container');
  */
 /* const closeButtonFullImage = popupFullImage.querySelector('.popup__close-button_full-image');
@@ -214,10 +215,6 @@ cardAddButton.addEventListener('click', () => {
 });
 //<<<<<< push the button to add a card
 
-
-
-
-
 //userInfo initialisation >>>>>
 const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector: '.profile__about' });
 //<<<<<
@@ -239,12 +236,13 @@ userEditButton.addEventListener('click', () => {
   popupProfile.form.userjob.value = userInfo.job;
   //<<<<<<
   popupProfile.open();
-  popupProfile.setEventListeners();//!!!!!тут не работает
+  popupProfile.setEventListeners();
   setValidators(popupProfile.form);
 })
-
-
-/* let inputsUserInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector: '.profile__about' });//или const???
-inputsUserInfo.getUserInfo(); */
-
 //<<<<<< push the button to edit the profile
+
+
+//full image popup initialisation >>>>>
+const popupFullImage = new Popup('.popup_full-image');
+
+popupFullImage.setEventListeners();
