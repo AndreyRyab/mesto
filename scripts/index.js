@@ -33,11 +33,12 @@ export const fullImageCaption = popupFullImage.querySelector('.popup__image-full
 
 /* const popupInputName = document.querySelector('.popup__form-input_name');
 const popupInputJob = document.querySelector('.popup__form-input_job');
-const popupAddCardForm = popupAddCard.querySelector('.popup__form_add-card');
+
 const popupEditUserForm = popupEditUser.querySelector('.popup__form_user'); */
 const cardAddButton = document.querySelector('.profile__add-button');
 /* const popupAddCardCloseButton = popupAddCard.querySelector('.popup__close-button');
  */
+const popupAddCardForm = document.querySelector('.popup__form_add-card');
 
 /*  const cardsContainer = document.querySelector('.cards__container');
  */
@@ -180,35 +181,42 @@ newSection.renderList()
 //<<<<<< render initial list
 
 
+//initialising popup add card>>>>>
+const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
+  evt.preventDefault();
+  const newCard = new Section(
+    {
+
+      items: [{ name: popupCard.form.title.value, link: popupCard.form.link.value }],
+
+      renderer: (item) => {
+
+        const card = new Card(item, '#cards__item-template', handleCardClick);
+    
+        const cardElement = card.generateCard();
+
+        newCard.addItem(cardElement);
+      }
+
+    },
+    '.cards__container');
+    newCard.renderList()
+  
+  popupCard.close()
+});
+
 //push the button to add a card >>>>>
 cardAddButton.addEventListener('click', () => {
-  const popup = new PopupWithForm('.popup_add-card', () => {
-    popup.close();
-    const newCard = new Section(
-      {
-
-        items: [{ name: userData.name, link: userData.link }],
-
-        renderer: (item) => {
-          const card = new Card(item, '#cards__item-template', handleCardClick);
-
-          const cardElement = card.generateCard();
-
-          newCard.addItem(cardElement);
-        }
-
-      },
-      '.cards__container');
-  });
-
-  const form = document.querySelector('.popup__form_add-card');
-  form.reset()
-  setValidators(form);
-  popup.open();
-  popup.setEventListeners();
-
+  popupCard.open();
+  popupCard.form.reset()
+  setValidators(popupCard.form);
+  popupCard.setEventListeners();
 });
 //<<<<<< push the button to add a card
+
+
+
+
 
 //userInfo initialisation >>>>>
 const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector: '.profile__about' });
