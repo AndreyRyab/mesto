@@ -3,27 +3,31 @@ import Popup from './Popup.js';
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, submitForm) {
     super(popupSelector);
-    this._form = super._popup.forms.form;
+    this.form = this._popup.querySelector('.popup__form');
     this._submitForm = submitForm;
   }
 
-  _getInputValues() {
-    const userData = {
-      name: this._form.elements.username.value,
-      job: this._form.elements.userjob.value,
-      title: this._form.elements.title.value,
-      link: this._form.elements.link.value
-    }
-  }
-
+ /*  _getInputValues() {
+    if (this._form.title) {
+      this._title = this._form.input.title.value;
+      this._link = this._form.link.value;
+    } */
+          
+      /* было:
+      name: this._form.username.value,
+      job: this._form.userjob.value,
+      title: this._form.title.value,
+      link: this._form.link.value */
+   
+  
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener('submit', this._submitForm);
+    this.form.addEventListener('submit', this._submitForm);
   }
 
   close() {
     super.close();
-    this._getInputValues();
-    this._form.reset();
+    /* this._getInputValues(); */
+    this.form.reset();
   }
 }
