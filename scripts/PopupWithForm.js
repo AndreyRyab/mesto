@@ -27,7 +27,6 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    /* this._getInputValues(); */
     this.form.reset();
   }
 }
