@@ -22,6 +22,20 @@ export const profileUserJob = document.querySelector('.profile__about');
 const userEditButton = document.querySelector('.profile__user-button');
 const cardAddButton = document.querySelector('.profile__add-button');
 
+//render initial card-list >>>>>>>
+const newSection = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '#cards__item-template', handleCardClick);
+    const cardElement = card.generateCard();
+    newSection.addItem(cardElement);
+  },
+},
+  '.cards__container');
+
+newSection.renderList();
+//<<<<<< render initial list
+
 
 //enable validation for each popup opening >>>>
 function setValidators(form) {
@@ -31,45 +45,26 @@ function setValidators(form) {
 //<<<< enable validation for each popup opening
 
 
-//render initial card-list >>>>>>>
-const newSection = new Section({
-
-  items: initialCards,
-
-  renderer: (item) => {
-    const card = new Card(item, '#cards__item-template', handleCardClick);
-    const cardElement = card.generateCard();
-    newSection.addItem(cardElement);
-  },
-},
- '.cards__container');
-
-newSection.renderList();
-//<<<<<< render initial list
-
-
 //initialising popup add card>>>>>
 const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
   evt.preventDefault();
-  const newCard = new Section(
-    {
-      items: [{ name: popupCard.form.title.value, link: popupCard.form.link.value }],
+  popupCard.close()
 
-      renderer: (item) => {
+  const newCard = new Section({
+    items: [popupCard.inputData],
+    renderer: (item) => {
 
-        const card = new Card(item, '#cards__item-template', handleCardClick);
-    
-        const cardElement = card.generateCard();
+      const card = new Card(item, '#cards__item-template', handleCardClick);
 
-        newCard.addItem(cardElement);
-      }
+      const cardElement = card.generateCard();
 
-    },
+      newCard.addItem(cardElement);
+    }
+
+  },
     '.cards__container');
 
-    newCard.renderList()
-  
-  popupCard.close()
+  newCard.renderList()
 });
 
 //push the button to add a card >>>>>
@@ -90,7 +85,7 @@ const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector:
 //profile popup initialisation >>>>>
 const popupProfile = new PopupWithForm('.popup_edit-user-profile', (evt) => {
   evt.preventDefault();
-  //collecting from the form >>>>>
+  //collecting data from the form >>>>>
   userInfo.name = popupProfile.form.username.value;
   userInfo.job = popupProfile.form.userjob.value;
   userInfo.setUserInfo(); //<<<< setting to the profile

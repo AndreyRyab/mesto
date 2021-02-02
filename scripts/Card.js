@@ -44,18 +44,11 @@ export default class Card {
   }
 
   _handleTrashButton(evt) {
-    let deletedCard = evt.target.closest('.cards__item'); //тут надо проверить на const
+    let deletedCard = evt.target.closest('.cards__item');
     deletedCard.remove();
     deletedCard = null;
   }
 
-/*   было
-  _handleFullImage(evt) {
-    openFullImage(evt);
-  }
- */
-
-  //стало
   _handleFullImage(evt) {
     handleCardClick(evt);
   }
