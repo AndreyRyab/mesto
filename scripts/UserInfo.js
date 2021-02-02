@@ -2,17 +2,17 @@ import { profileUserName, profileUserJob } from './index.js';
 
 export default class UserInfo {
   constructor({ nameSelector, jobSelector }) {
-    this._name = document.querySelector(nameSelector).value; //значение из инпута
-    this._job = document.querySelector(jobSelector).value; //значение из инпута
+    this.name = document.querySelector(nameSelector).textContent;
+    this.job = document.querySelector(jobSelector).textContent;
   }
 
   getUserInfo() {
-    const userData = { name: this._name, job: this._job };
-    return userData;
+    this.name = profileUserName.textContent;
+    this.job = profileUserJob.textContent;
   }
 
   setUserInfo() {
-    profileUserName.textContent = this._name;
-    profileUserJob.textContent = this._job;
+    profileUserName.textContent = this.name;
+    profileUserJob.textContent = this.job;
   }
 }

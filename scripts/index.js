@@ -186,44 +186,57 @@ cardAddButton.addEventListener('click', () => {
     popup.close();
     const newCard = new Section(
       {
+
         items: [{ name: userData.name, link: userData.link }],
+
         renderer: (item) => {
           const card = new Card(item, '#cards__item-template', handleCardClick);
 
-          card.generateCard();
+          const cardElement = card.generateCard();
+
+          newCard.addItem(cardElement);
         }
+
       },
       '.cards__container');
-
-    addItem(newCard);
-    //нужно ли здесь обнулять userData??? 
-
   });
-  popup.form.reset();
-  setValidators(popup.form);
+
+  const form = document.querySelector('.popup__form_add-card');
+  form.reset()
+  setValidators(form);
   popup.open();
   popup.setEventListeners();
 
 });
 //<<<<<< push the button to add a card
 
+//userInfo initialisation >>>>>
+const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector: '.profile__about' });
+//<<<<<
+
+const popupProfile = new PopupWithForm('.popup_edit-user-profile', (evt) => {
+  evt.preventDefault();
+  //collecting from the form >>>>>
+  userInfo.name = popupProfile.form.username.value;
+  userInfo.job = popupProfile.form.userjob.value;
+  userInfo.setUserInfo(); //<<<< setting to the profile
+  popupProfile.close();
+});
 
 //push the button to edit the profile >>>>>
-
 userEditButton.addEventListener('click', () => {
-  let inputsUserInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector: '.profile__about' });//или const???
-  inputsUserInfo.getUserInfo();
-  const popup = new PopupWithForm('.popup_edit-user-profile', (evt) => {
-    evt.preventDefault();
-    const userInfo = new UserInfo({ nameSelector: '.popup__form-input_name', jobSelector: '.popup__form-input_job' });
-    userInfo.getUserInfo().setUserInfo();
-    profileUserName.textContent = userData.name;
-    profileUserJob.textContent = userData.job;
-    popup.close();
-  });
-  popup._form.elements.username.value = profileUserName.textContent;
-  popup._form.elements.userjob.value = profileUserJob.textContent;
-  popup.open();
-  popup.setEventListeners();
+  //setting data from userInfo to the form when opening >>>>>
+  userInfo.getUserInfo();
+  popupProfile.form.username.value = userInfo.name;
+  popupProfile.form.userjob.value = userInfo.job;
+  //<<<<<<
+  popupProfile.open();
+  popupProfile.setEventListeners();//!!!!!тут не работает
+  setValidators(popupProfile.form);
 })
+
+
+/* let inputsUserInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector: '.profile__about' });//или const???
+inputsUserInfo.getUserInfo(); */
+
 //<<<<<< push the button to edit the profile
