@@ -8,9 +8,11 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    this.inputData = { name: this.form.title.value, link: this.form.link.value }
+    if (this.form.title) {
+      this.inputData = { name: this.form.title.value, link: this.form.link.value }
     }
-   
+  }
+
   setEventListeners() {
     super.setEventListeners();
     this.form.addEventListener('submit', this._submitForm);

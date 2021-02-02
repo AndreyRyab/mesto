@@ -9,6 +9,7 @@ export default class UserInfo {
   getUserInfo() {
     this.name = profileUserName.textContent;
     this.job = profileUserJob.textContent;
+    
   }
 
   setUserInfo() {
