@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto/Russia</title>
-  <link rel="shortcut icon" href="images/favicon.ico">
+  <link rel="shortcut icon" href="./images/favicon.ico">
   <meta name="description" content="Соцсеть для путешественников">
 </head>
 
@@ -13,7 +13,7 @@
   <div class="content">
     <header class="header">
       <a href="index.html" target="_self">
-        <img class="header__logo" src="<%=require('images/logo-mesto-russia.svg')%>" alt="Логотип Mesto.Russia">
+        <img class="header__logo" src="<%=require('./images/logo-mesto-russia.svg')%>" alt="Логотип Mesto.Russia">
       </a>
     </header>
     <main>
@@ -23,14 +23,14 @@
           <div class="profile__user-container">
             <h1 class="profile__username">Жак-Ив Кусто</h1>
             <button class="profile__user-button" type="button">
-              <img class="profile__edit-icon" src="<%=require('images/button-edit-icon.svg')%>"
+              <img class="profile__edit-icon" src="<%=require('./images/button-edit-icon.svg')%>"
                 alt="Кнопка редактирования профиля">
             </button>
           </div>
           <p class="profile__about">Исследователь океана</p>
         </div>
         <button class="profile__add-button" type="button">
-          <img class="profile__add-icon" src="<%=require('images/button-plus-icon.svg')%>"
+          <img class="profile__add-icon" src="<%=require('./images/button-plus-icon.svg')%>"
             alt="Кнопка добавления нового места">
         </button>
       </section>
@@ -48,7 +48,7 @@
 
   <div class="popup popup_edit-user-profile">
     <div class="popup__container">
-      <button class="popup__close-button" type="button"><img src="<%=require('images/close-popup-icon.svg')%>"
+      <button class="popup__close-button" type="button"><img src="<%=require('./images/close-popup-icon.svg')%>"
           alt="Иконка закрытия диалогового окна"></button>
       <form name="popup__form" class="popup__form popup__form_user" novalidate>
         <h2 class="popup__form-heading">Редактировать профиль</h2>
@@ -70,7 +70,7 @@
   <div class="popup popup_add-card">
     <div class="popup__container popup__container_add-card">
       <button class="popup__close-button popup__close-button_add-card" type="button"><img
-          src="<%=require('images/close-popup-icon.svg')%>" alt="Иконка закрытия диалогового окна"></button>
+          src="<%=require('./images/close-popup-icon.svg')%>" alt="Иконка закрытия диалогового окна"></button>
       <form name="popup__form" class="popup__form popup__form_add-card" novalidate>
         <h2 class="popup__form-heading popup__form-heading_add-card">Новое место</h2>
         <label class="popup__form-item">
@@ -91,7 +91,7 @@
   <div class="popup popup_full-image">
     <figure class="popup__image-full-container">
       <button class="popup__close-button popup__close-button_full-image" type="button"><img
-          src="<%=require('images/close-popup-icon.svg')%>" alt="Кнопка закрытия модального окна"></button>
+          src="<%=require('./images/close-popup-icon.svg')%>" alt="Кнопка закрытия модального окна"></button>
       <img class="popup__image-full-pic" src="<%=require('./images/mesto-polyana-xl.jpg')%>" alt="Описание изображения">
       <figcaption class="popup__image-full-caption">Красная поляна</figcaption>
     </figure>
@@ -107,6 +107,7 @@
       </div>
     </li>
   </template>
+
 
 </body>
 
