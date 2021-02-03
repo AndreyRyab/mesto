@@ -12,4 +12,4 @@ Features:
 * popup closing on click on overlay/escape keydown
 
 **Technologies**
-html, css, pure Javascript.
+html, css, JavaScript, Webpack

@@ -1,4 +1,4 @@
-import { profileUserName, profileUserJob } from './index.js';
+import { profileUserName, profileUserJob } from '../index.js';
 
 export default class UserInfo {
   constructor({ nameSelector, jobSelector }) {
