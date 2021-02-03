@@ -4,7 +4,7 @@ It's a [single-page project](https://andreyryab.github.io/mesto/index.html) - ki
 Features:
 
 * js+vendor form validation
-* user-profile: avatar, editable user-info, add-cards button
+* user-profile: avatar, user-info, add-cards button
 * cards with images, titles, like-buttons, delete-buttons
 * user info edit form (in popup)
 * add card form (in popup)
@@ -12,4 +12,4 @@ Features:
 * popup closing on click on overlay/escape keydown
 
 **Technologies**
-html, css, pure Javascript.
+html, css, JavaScript, Webpack

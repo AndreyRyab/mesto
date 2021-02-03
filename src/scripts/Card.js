@@ -1,10 +1,11 @@
-import openFullImage from './utils.js';
+import handleCardClick from './utils.js';
 
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor( data, cardSelector, handleCardClick) {
     this._title = data.name;
     this._image = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   //make an empty card-tempate
@@ -14,7 +15,7 @@ export default class Card {
       .content
       .querySelector('.cards__item')
       .cloneNode(true);
-
+ 
     return cardElement;
   }
 
@@ -49,6 +50,7 @@ export default class Card {
   }
 
   _handleFullImage(evt) {
-    openFullImage(evt);
+    handleCardClick(evt);
   }
+
 }
