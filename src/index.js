@@ -38,41 +38,37 @@ newSection.renderList();
 //<<<<<< render initial list
 
 
-//enable validation for each popup opening >>>>
+//enable validation >>>>
 function setValidators(form) {
   const formValidator = new FormValidator(validationConfig, form);
   formValidator.enableValidation();
 }
-//<<<< enable validation for each popup opening
-
+//<<<< enable validation
 
 //initialising popup add card>>>>>
 const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
   evt.preventDefault();
   popupCard.close()
 
-  const newCard = new Section({
-    items: [popupCard.inputData],
-    renderer: (item) => {
-
-      const card = new Card(item, '#cards__item-template', handleCardClick);
-
-      const cardElement = card.generateCard();
-
-      newCard.addItem(cardElement);
-    }
-
-  },
-    '.cards__container');
+  const newCard = new Section(
+    {
+      items: [popupCard.inputData],
+      renderer: (item) => {
+        const card = new Card(item, '#cards__item-template', handleCardClick);
+        const cardElement = card.generateCard();
+        newCard.addItem(cardElement);
+      }
+    }, '.cards__container');
 
   newCard.renderList()
 });
 
+setValidators(popupCard.form);
+
 //push the button to add a card >>>>>
 cardAddButton.addEventListener('click', () => {
   popupCard.open();
-  popupCard.form.reset()
-  setValidators(popupCard.form);
+  popupCard.form.reset();
   popupCard.setEventListeners();
 });
 //<<<<<< push the button to add a card
