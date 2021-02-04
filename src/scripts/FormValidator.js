@@ -16,13 +16,11 @@ export default class FormValidator {
     this._setButtonState();
     //hide error-texts
     this._clearErrors();
-
     this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
     //hide input-errors
     this._inputList.forEach((item) => {
       item.classList.remove(this._inputErrorClass);
     });
-
     //set listeners for checking validity while input
     this._setEventListeners();
   }
@@ -31,7 +29,7 @@ export default class FormValidator {
     Array.from(this._form.querySelectorAll(this._errorElement))
       .forEach((item) => { item.classList.remove(this._errorVisibility) });
   }
-  
+
 
   _setEventListeners() {
     this._inputList.forEach((item) => {

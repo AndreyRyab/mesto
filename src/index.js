@@ -38,42 +38,31 @@ newSection.renderList();
 //<<<<<< render initial list
 
 
-//enable validation for each popup opening >>>>
+//enable validation >>>>
 function setValidators(form) {
   const formValidator = new FormValidator(validationConfig, form);
   formValidator.enableValidation();
 }
-//<<<< enable validation for each popup opening
+//<<<< enable validation
 
-
-//initialising popup add card>>>>>
+//initialising popup add card >>>>>
 const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
   evt.preventDefault();
-  popupCard.close()
-
-  const newCard = new Section({
-    items: [popupCard.inputData],
-    renderer: (item) => {
-
-      const card = new Card(item, '#cards__item-template', handleCardClick);
-
-      const cardElement = card.generateCard();
-
-      newCard.addItem(cardElement);
-    }
-
-  },
-    '.cards__container');
-
-  newCard.renderList()
+  popupCard.close();
+  const card = new Card(popupCard.inputData, '#cards__item-template', handleCardClick);
+  const cardElement = card.generateCard();
+  newSection.addItem(cardElement)
 });
+
+setValidators(popupCard.form);
+
+popupCard.setEventListeners();
+//<<<<< initialising popup add card
 
 //push the button to add a card >>>>>
 cardAddButton.addEventListener('click', () => {
   popupCard.open();
-  popupCard.form.reset()
-  setValidators(popupCard.form);
-  popupCard.setEventListeners();
+  popupCard.form.reset();
 });
 //<<<<<< push the button to add a card
 
@@ -94,6 +83,7 @@ const popupProfile = new PopupWithForm('.popup_edit-user-profile', (evt) => {
 });
 //<<<<< profile popup initialisation
 
+popupProfile.setEventListeners();
 
 //push the button to edit the profile >>>>>
 userEditButton.addEventListener('click', () => {
@@ -103,7 +93,6 @@ userEditButton.addEventListener('click', () => {
   popupProfile.form.userjob.value = userInfo.job;
   //<<<<<< setting data from userInfo to the form when opening
   popupProfile.open();
-  popupProfile.setEventListeners();
   setValidators(popupProfile.form);
 })
 //<<<<<< push the button to edit the profile
