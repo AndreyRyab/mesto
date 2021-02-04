@@ -65,11 +65,12 @@ const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
 
 setValidators(popupCard.form);
 
+popupCard.setEventListeners();
+
 //push the button to add a card >>>>>
 cardAddButton.addEventListener('click', () => {
   popupCard.open();
   popupCard.form.reset();
-  popupCard.setEventListeners();
 });
 //<<<<<< push the button to add a card
 
@@ -90,6 +91,7 @@ const popupProfile = new PopupWithForm('.popup_edit-user-profile', (evt) => {
 });
 //<<<<< profile popup initialisation
 
+popupProfile.setEventListeners();
 
 //push the button to edit the profile >>>>>
 userEditButton.addEventListener('click', () => {
@@ -99,7 +101,6 @@ userEditButton.addEventListener('click', () => {
   popupProfile.form.userjob.value = userInfo.job;
   //<<<<<< setting data from userInfo to the form when opening
   popupProfile.open();
-  popupProfile.setEventListeners();
   setValidators(popupProfile.form);
 })
 //<<<<<< push the button to edit the profile
