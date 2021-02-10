@@ -1,9 +1,10 @@
-import { profileUserName, profileUserJob } from '../index.js';
+import { profileUserName, profileUserJob, profileAvatar } from '../index.js';
 
 export default class Api {
-  constructor(url, token) {
+  constructor(url, token, avatar) {
     this.url = url;
     this.token = token;
+    this.avatar = avatar;
   }
 
   getUserInfoFromServer() {
@@ -22,6 +23,7 @@ export default class Api {
       .then((userData) => {
         profileUserName.textContent = userData.name;
         profileUserJob.textContent = userData.about;
+        profileAvatar.style.backgroundImage = `url('${userData.avatar}')`;
       })
     }
 

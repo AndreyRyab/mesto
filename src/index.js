@@ -21,11 +21,14 @@ const validationConfig = {
 
 export const profileUserName = document.querySelector('.profile__username');
 export const profileUserJob = document.querySelector('.profile__about');
+export const profileAvatar = document.querySelector('.profile__avatar');
 const userEditButton = document.querySelector('.profile__user-button');
 const cardAddButton = document.querySelector('.profile__add-button');
 
+//getting user data from server and setting to the profile >>>>>
 const newApi = new Api('https://mesto.nomoreparties.co/v1/cohort-20/users/me', 'fb75d0e9-391a-4d96-80ba-b4913a49b17c');
 newApi.getUserInfoFromServer()
+//<<<<<< getting user data from server and setting to the profile
 
 //render initial card-list >>>>>>>
 const newSection = new Section({
