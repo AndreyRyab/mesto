@@ -7,6 +7,7 @@ import PopupWithForm from './scripts/PopupWithForm.js';
 import UserInfo from './scripts/UserInfo.js';
 import Section from './scripts/Section.js';
 import handleCardClick from './scripts/utils.js';
+import Api from './scripts/Api.js';
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -22,6 +23,9 @@ export const profileUserName = document.querySelector('.profile__username');
 export const profileUserJob = document.querySelector('.profile__about');
 const userEditButton = document.querySelector('.profile__user-button');
 const cardAddButton = document.querySelector('.profile__add-button');
+
+const newApi = new Api('https://mesto.nomoreparties.co/v1/cohort-20/users/me', 'fb75d0e9-391a-4d96-80ba-b4913a49b17c');
+newApi.getUserInfoFromServer()
 
 //render initial card-list >>>>>>>
 const newSection = new Section({
@@ -102,3 +106,40 @@ userEditButton.addEventListener('click', () => {
 const popupFullImage = new Popup('.popup_full-image');
 popupFullImage.setEventListeners();
 //<<<<< full image popup initialisation
+
+
+
+
+
+
+
+
+
+
+
+/* fetch('https://mesto.nomoreparties.co/v1/cohort-20/cards', {
+  headers: {
+    authorization: 'fb75d0e9-391a-4d96-80ba-b4913a49b17c'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  }); */
+
+
+
+  //Загрузка информации о пользователе с сервера>>>
+
+/*  fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me', {
+  method: 'GET',
+  headers: {
+    authorization: 'fb75d0e9-391a-4d96-80ba-b4913a49b17c'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  }); */
+
+  //<<< загрузка информации о пользователе с сервера
