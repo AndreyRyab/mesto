@@ -1,14 +1,14 @@
 import { profileUserName, profileUserJob, profileAvatar } from '../index.js';
 
 export default class Api {
-  constructor(url, token, avatar) {
-    this.url = url;
+  constructor(baseUrl, token, /* cardId */) {
+    this.baseUrl = baseUrl;
     this.token = token;
-    this.avatar = avatar;
+    /* this.cardId = cardId; */
   }
 
   getUserInfoFromServer() {
-    fetch(this.url, {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: 'GET',
       headers: {
         authorization: this.token
@@ -24,6 +24,31 @@ export default class Api {
         profileUserName.textContent = userData.name;
         profileUserJob.textContent = userData.about;
         profileAvatar.style.backgroundImage = `url('${userData.avatar}')`;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  getInitialCards() {
+    return fetch(`${this.baseUrl}/cards`, {
+      method: 'GET',
+      headers: {
+        authorization: this.token
+      }
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(data => {
+        const initialCards = data;
+        return initialCards;
+      })
+      .catch((err) => {
+        console.log(err);
       })
     }
 
@@ -60,19 +85,3 @@ export default class Api {
   }); */
 
   //<<< загрузка информации о пользователе с сервера
-
-
-
-
-
-  //!!!! Ответ от сервера всегда проверяется на корректность:
-
-  /* .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-      
-  // если ошибка, отклоняем промис
-  
-    return Promise.reject(`Ошибка: ${res.status}`);
-  }); */
