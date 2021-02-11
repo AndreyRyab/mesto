@@ -50,7 +50,30 @@ export default class Api {
       .catch((err) => {
         console.log(err);
       })
-    }
+  }
+
+  sendUserInfoToServer() {
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: profileUserName.textContent,
+        about: profileUserJob.textContent
+      })
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
 }
 
