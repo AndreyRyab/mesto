@@ -2,8 +2,8 @@ import './pages/index.css';
 import Card from './scripts/Card.js';
 import Popup from './scripts/Popup.js';
 import FormValidator from './scripts/FormValidator.js';
-import { initialCards } from './scripts/initialCards.js';
-import PopupWithForm from './scripts/PopupWithForm.js';
+/* import { initialCards } from './scripts/initialCards.js';
+ */import PopupWithForm from './scripts/PopupWithForm.js';
 import UserInfo from './scripts/UserInfo.js';
 import Section from './scripts/Section.js';
 import handleCardClick from './scripts/utils.js';
@@ -25,23 +25,34 @@ export const profileAvatar = document.querySelector('.profile__avatar');
 const userEditButton = document.querySelector('.profile__user-button');
 const cardAddButton = document.querySelector('.profile__add-button');
 
+
+//userInfo object initialisation >>>>>
+const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector: '.profile__about' });
+//<<<<<
+
 //getting user data from server and setting to the profile >>>>>
-const newApi = new Api('https://mesto.nomoreparties.co/v1/cohort-20/users/me', 'fb75d0e9-391a-4d96-80ba-b4913a49b17c');
-newApi.getUserInfoFromServer()
+const api = new Api('https://mesto.nomoreparties.co/v1/cohort-20', 'fb75d0e9-391a-4d96-80ba-b4913a49b17c');
+api.getUserInfoFromServer()
+
+
 //<<<<<< getting user data from server and setting to the profile
 
-//render initial card-list >>>>>>>
-const newSection = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = new Card(item, '#cards__item-template', handleCardClick);
-    const cardElement = card.generateCard();
-    newSection.addItem(cardElement);
-  },
-},
-  '.cards__container');
 
-newSection.renderList();
+//render initial card-list >>>>>>>
+api.getInitialCards()
+  .then(initialCards => {
+    const newSection = new Section({
+      items: initialCards,
+      renderer: (item) => {
+        const card = new Card(item, '#cards__item-template', handleCardClick);
+        const cardElement = card.generateCard();
+        newSection.addItem(cardElement);
+      },
+    },
+      '.cards__container');
+    newSection.renderList();
+  }
+  )
 //<<<<<< render initial list
 
 
@@ -51,6 +62,7 @@ function setValidators(form) {
   formValidator.enableValidation();
 }
 //<<<< enable validation
+
 
 //initialising popup add card >>>>>
 const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
@@ -72,11 +84,6 @@ cardAddButton.addEventListener('click', () => {
   popupCard.form.reset();
 });
 //<<<<<< push the button to add a card
-
-
-//userInfo object initialisation >>>>>
-const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector: '.profile__about' });
-//<<<<<
 
 
 //profile popup initialisation >>>>>
