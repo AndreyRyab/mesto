@@ -20,9 +20,12 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
       })
       .then((userData) => {
-        profileUserName.textContent = userData.name;
+
+        const allAboutUser = userData;
+        return allAboutUser;
+        /* profileUserName.textContent = userData.name;
         profileUserJob.textContent = userData.about;
-        profileAvatar.style.backgroundImage = `url('${userData.avatar}')`;
+        profileAvatar.style.backgroundImage = `url('${userData.avatar}')`; */
       })
       .catch((err) => {
         console.log(err);

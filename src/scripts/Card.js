@@ -5,7 +5,7 @@ export default class Card {
   constructor(data, cardSelector, handleCardClick) {
     this._title = data.name;
     this._image = data.link;
-    this._likes = data.likes.length;
+    this._likes = [data.likes].length;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
   }
@@ -36,10 +36,10 @@ export default class Card {
 
   _setEventListeners() {
     this._element.querySelector('.cards__like-button').addEventListener('click', this._handleLikeButton);
-
-    this._element.querySelector('.cards__trash-button').addEventListener('click', this._handleTrashButton);
-
     this._element.querySelector('.cards__img').addEventListener('click', this._handleFullImage);
+    if (this._element.classList.contains('cards__trash-button')) {
+      this._element.querySelector('cards__trash-button').addEventListener('click', this._handleTrashButton);
+    }
   }
 
   _handleLikeButton(evt) {
