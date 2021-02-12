@@ -32,9 +32,7 @@ const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector:
 
 //getting user data from server and setting to the profile >>>>>
 const api = new Api('https://mesto.nomoreparties.co/v1/cohort-20', 'fb75d0e9-391a-4d96-80ba-b4913a49b17c');
-api.getUserInfoFromServer()
-
-
+api.getUserInfoFromServer();
 //<<<<<< getting user data from server and setting to the profile
 
 
@@ -65,12 +63,24 @@ function setValidators(form) {
 
 
 //initialising popup add card >>>>>
-const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
+export const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
   evt.preventDefault();
   popupCard.close();
-  const card = new Card(popupCard.inputData, '#cards__item-template', handleCardClick);
-  const cardElement = card.generateCard();
-  newSection.addItem(cardElement)
+  console.log(popupCard.inputData);
+
+  const newSection = new Section({
+    items: [popupCard.inputData],
+    renderer: (item) => {
+      const card = new Card(item, '#cards__item-template', handleCardClick);
+      const cardElement = card.generateCard();
+      newSection.addItem(cardElement);
+    },
+  },
+    '.cards__container');
+
+  api.addNewCardToServer()
+    //.then тут будем показывать, что сохраняется (то есть попап с кнопкой "сохраняю")
+    .then(() => newSection.renderList());
 });
 
 setValidators(popupCard.form);

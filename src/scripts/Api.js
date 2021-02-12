@@ -1,17 +1,16 @@
-import { profileUserName, profileUserJob, profileAvatar } from '../index.js';
+import { profileUserName, profileUserJob, profileAvatar, popupCard } from '../index.js';
 
 export default class Api {
-  constructor(baseUrl, token, /* cardId */) {
-    this.baseUrl = baseUrl;
-    this.token = token;
-    /* this.cardId = cardId; */
+  constructor(baseUrl, token) {
+    this._baseUrl = baseUrl;
+    this._token = token;
   }
 
   getUserInfoFromServer() {
-    return fetch(`${this.baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: {
-        authorization: this.token
+        authorization: this._token
       }
     })
       .then(res => {
@@ -31,10 +30,10 @@ export default class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this.baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'GET',
       headers: {
-        authorization: this.token
+        authorization: this._token
       }
     })
       .then(res => {
@@ -53,15 +52,38 @@ export default class Api {
   }
 
   sendUserInfoToServer() {
-    return fetch(`${this.baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: {
-        authorization: this.token,
+        authorization: this._token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         name: profileUserName.textContent,
         about: profileUserJob.textContent
+      })
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  addNewCardToServer() {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: popupCard.inputData.name,
+        link: popupCard.inputData.link
       })
     })
       .then(res => {
