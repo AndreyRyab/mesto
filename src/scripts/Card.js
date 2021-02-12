@@ -1,4 +1,5 @@
 import handleCardClick from './utils.js';
+import { submitRemoveCard } from './utils.js';
 
 export default class Card {
   constructor(data, cardSelector, handleCardClick) {
@@ -46,6 +47,7 @@ export default class Card {
   }
 
   _handleTrashButton(evt) {
+    submitRemoveCard();
     let deletedCard = evt.target.closest('.cards__item');
     deletedCard.remove();
     deletedCard = null;
