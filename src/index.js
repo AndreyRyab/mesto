@@ -32,23 +32,36 @@ const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector:
 
 //getting user data from server and setting to the profile >>>>>
 export const api = new Api('https://mesto.nomoreparties.co/v1/cohort-20', 'fb75d0e9-391a-4d96-80ba-b4913a49b17c');
+
 api.getUserInfoFromServer()
   .then((allAboutUser) => {
-    console.log(allAboutUser)
     profileUserName.textContent = allAboutUser.name;
     profileUserJob.textContent = allAboutUser.about;
     profileAvatar.style.backgroundImage = `url('${allAboutUser.avatar}')`;
     return allAboutUser;
   })
-  .then((allAboutUser) => {  
+  .then((allAboutUser) => {
     api.getInitialCards()
       .then(initialCards => {
         const newSection = new Section({
           items: initialCards,
           renderer: (item) => {
-            if (item.owner._id == allAboutUser._id) {
+            if (item.owner._id === allAboutUser._id) {
               const card = new Card(item, '#cards__item-template_owner', handleCardClick);
               const cardElement = card.generateCard();
+              cardElement.querySelector('.cards__trash-button').addEventListener('click', () => {
+                const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
+                  evt.preventDefault();
+
+                  api.deleteCardFromServer(item._id)
+                    .then(() => {
+                      popupSubmitRemove.close();
+                    })
+                    .then(() => cardElement.remove())
+                });
+                popupSubmitRemove.open();
+                popupSubmitRemove.setEventListeners();
+              });
               newSection.addItem(cardElement);
             } else {
               const card = new Card(item, '#cards__item-template', handleCardClick);
@@ -78,25 +91,33 @@ function setValidators(form) {
 export const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
   evt.preventDefault();
   popupCard.close();
-  console.log(popupCard.inputData);
-
   const newSection = new Section({
     items: [popupCard.inputData],
     renderer: (item) => {
       const card = new Card(item, '#cards__item-template_owner', handleCardClick);
       const cardElement = card.generateCard();
+      cardElement.querySelector('.cards__trash-button').addEventListener('click', () => {
+        const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
+          evt.preventDefault();
+
+          api.deleteCardFromServer(item._id)
+            .then(() => {
+              popupSubmitRemove.close();
+            })
+            .then(() => cardElement.remove())
+        });
+        popupSubmitRemove.open();
+        popupSubmitRemove.setEventListeners();
+      });
       newSection.addItem(cardElement);
-    },
+    }
   },
     '.cards__container');
-
   api.addNewCardToServer()
     //.then тут будем показывать, что сохраняется (то есть попап с кнопкой "сохраняю")
     .then(() => newSection.renderList());
 });
-
 setValidators(popupCard.form);
-
 popupCard.setEventListeners();
 //<<<<< initialising popup add card
 
@@ -115,13 +136,12 @@ const popupProfile = new PopupWithForm('.popup_edit-user-profile', (evt) => {
   userInfo.name = popupProfile.form.username.value;
   userInfo.job = popupProfile.form.userjob.value;
   userInfo.setUserInfo();
-  api.sendUserInfoToServer();
   //<<<< setting to the profile
+  api.sendUserInfoToServer();
   popupProfile.close();
 });
-//<<<<< profile popup initialisation
-
 popupProfile.setEventListeners();
+//<<<<< profile popup initialisation
 
 //push the button to edit the profile >>>>>
 userEditButton.addEventListener('click', () => {

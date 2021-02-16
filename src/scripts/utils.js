@@ -7,11 +7,17 @@ export default function handleCardClick(evt) {
   popupFullImageOpened.open(evt);
 }
 
-export function submitRemoveCard() {
+/* export function submitRemoveCard(cardId) {
   const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
     evt.preventDefault();
-    
+    api.deleteCardFromServer(cardId);
   });
   popupSubmitRemove.open();
   popupSubmitRemove.setEventListeners();
+} */
+
+export function handleTrashButton(evt) {
+  let deletedCard = evt.target.closest('.cards__item');
+  deletedCard.remove();
+  deletedCard = null;
 }
