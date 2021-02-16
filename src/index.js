@@ -2,8 +2,7 @@ import './pages/index.css';
 import Card from './scripts/Card.js';
 import Popup from './scripts/Popup.js';
 import FormValidator from './scripts/FormValidator.js';
-/* import { initialCards } from './scripts/initialCards.js';
- */import PopupWithForm from './scripts/PopupWithForm.js';
+import PopupWithForm from './scripts/PopupWithForm.js';
 import UserInfo from './scripts/UserInfo.js';
 import Section from './scripts/Section.js';
 import handleCardClick from './scripts/utils.js';
@@ -49,10 +48,28 @@ api.getUserInfoFromServer()
             if (item.owner._id === allAboutUser._id) {
               const card = new Card(item, '#cards__item-template_owner', handleCardClick);
               const cardElement = card.generateCard();
+
+
+              //add-remove like feature>>>>>
+              const likeButton = cardElement.querySelector('.cards__like-button');
+              likeButton.addEventListener('click', () => {
+                if (likeButton.classList.contains('cards__like-button_active')) {
+                  api.deleteLike(item._id);
+                  likeButton.classList.remove('cards__like-button_active');
+                } else {
+                  api.addLike(item._id);
+                  likeButton.classList.add('cards__like-button_active');
+                }
+
+                //<<<<
+              });
+
+              //<<<<
+
+              //add delete card feature>>>>
               cardElement.querySelector('.cards__trash-button').addEventListener('click', () => {
                 const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
                   evt.preventDefault();
-
                   api.deleteCardFromServer(item._id)
                     .then(() => {
                       popupSubmitRemove.close();
@@ -61,11 +78,26 @@ api.getUserInfoFromServer()
                 });
                 popupSubmitRemove.open();
                 popupSubmitRemove.setEventListeners();
-              });
+              }); //<<<<<
+
               newSection.addItem(cardElement);
             } else {
               const card = new Card(item, '#cards__item-template', handleCardClick);
               const cardElement = card.generateCard();
+
+              //add-remove like feature>>>>>
+              const likeButton = cardElement.querySelector('.cards__like-button');
+              likeButton.addEventListener('click', () => {
+                if (likeButton.classList.contains('cards__like-button_active')) {
+                  api.deleteLike(item._id);
+                  likeButton.classList.remove('cards__like-button_active');
+                } else {
+                  api.addLike(item._id);
+                  likeButton.classList.add('cards__like-button_active');
+                }
+
+                //<<<<
+              });
               newSection.addItem(cardElement);
             }
           },
