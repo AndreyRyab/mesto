@@ -1,10 +1,11 @@
 import { profileUserName, profileUserJob, profileAvatar, popupCard } from '../index.js';
 
 export default class Api {
-  constructor(baseUrl, token) {
+  constructor(baseUrl, token/* , cardId */) {
     this._baseUrl = baseUrl;
     this._token = token;
-  }
+/*     this._cardId = cardId;
+ */  }
 
   getUserInfoFromServer() {
     return fetch(`${this._baseUrl}/users/me`, {
@@ -88,6 +89,24 @@ export default class Api {
         name: popupCard.inputData.name,
         link: popupCard.inputData.link
       })
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  deleteCardFromServer(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token
+      }
     })
       .then(res => {
         if (res.ok) {
