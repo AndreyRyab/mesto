@@ -16,8 +16,9 @@ export default function handleCardClick(evt) {
   popupSubmitRemove.setEventListeners();
 } */
 
-export function handleTrashButton(evt) {
+/* export function handleTrashButton(evt) {
   let deletedCard = evt.target.closest('.cards__item');
   deletedCard.remove();
   deletedCard = null;
-}
+
+} */

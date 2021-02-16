@@ -35,21 +35,14 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.cards__like-button').addEventListener('click', this._handleLikeButton);
-    this._element.querySelector('.cards__img').addEventListener('click', this._handleFullImage);
+/*     this._element.querySelector('.cards__like-button').addEventListener('click', this._handleLikeButton);
+ */    this._element.querySelector('.cards__img').addEventListener('click', this._handleFullImage);
   }
 
-  //setEventListenerOnTrashBtn() {
-   // this._element.querySelector('.cards__trash-button').addEventListener('click', /* this._handleTrashButton */ handleTrashButton)}
 
-  _handleLikeButton(evt) {
+/*   _handleLikeButton(evt) {
+
     evt.target.classList.toggle('cards__like-button_active');
-  }
-
-  /* _handleTrashButton(evt) {
-    let deletedCard = evt.target.closest('.cards__item');
-    deletedCard.remove();
-    deletedCard = null;
   } */
 
   _handleFullImage(evt) {
