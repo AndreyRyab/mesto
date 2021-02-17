@@ -7,6 +7,8 @@
 @import url("../blocks/header/__logo/header__logo.css");
 @import url("../blocks/profile/profile.css");
 @import url("../blocks/profile/__avatar/profile__avatar.css");
+@import url("../blocks/profile/__avatar-hover/profile__avatar-hover.css");
+@import url("../blocks/profile/__avatar-hover-icon/profile__avatar-hover-icon.css");
 @import url("../blocks/profile/__user-container/profile__user-container.css");
 @import url("../blocks/profile/__user-info/profile__user-info.css");
 @import url("../blocks/profile/__username/profile__username.css");

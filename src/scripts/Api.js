@@ -21,7 +21,6 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
       })
       .then((userData) => {
-
         const allAboutUser = userData;
         return allAboutUser;
         /* profileUserName.textContent = userData.name;
