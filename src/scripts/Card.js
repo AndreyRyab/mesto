@@ -1,11 +1,10 @@
 import handleCardClick from './utils.js';
-import { handleTrashButton } from './utils.js';
 
 export default class Card {
   constructor(data, cardSelector, handleCardClick) {
     this._title = data.name;
     this._image = data.link;
-    this._likes = [data.likes].length;
+    this._likes = data.likes.length;
     this._id = data._id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
@@ -35,15 +34,8 @@ export default class Card {
   }
 
   _setEventListeners() {
-/*     this._element.querySelector('.cards__like-button').addEventListener('click', this._handleLikeButton);
- */    this._element.querySelector('.cards__img').addEventListener('click', this._handleFullImage);
+    this._element.querySelector('.cards__img').addEventListener('click', this._handleFullImage);
   }
-
-
-/*   _handleLikeButton(evt) {
-
-    evt.target.classList.toggle('cards__like-button_active');
-  } */
 
   _handleFullImage(evt) {
     handleCardClick(evt);

@@ -7,6 +7,27 @@ export default function handleCardClick(evt) {
   popupFullImageOpened.open(evt);
 }
 
+export function handleLikes(cardElement, itemId) {
+  //???как сделать, чтобы лайк горел, если юзер уже лайкал???? 
+  const likesCounter = cardElement.querySelector('.cards__like-counter');
+  const likeButton = cardElement.querySelector('.cards__like-button');
+  likeButton.addEventListener('click', () => {
+    if (likeButton.classList.contains('cards__like-button_active')) {
+      api.deleteLike(itemId)
+        .then((data) => {
+          likesCounter.textContent = data.likes.length;
+          likeButton.classList.remove('cards__like-button_active');
+        })
+    } else {
+      api.addLike(itemId)
+        .then((data) => {
+          likesCounter.textContent = data.likes.length;
+          likeButton.classList.add('cards__like-button_active');
+        })
+    }
+  })
+}
+
 /* export function submitRemoveCard(cardId) {
   const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
     evt.preventDefault();
