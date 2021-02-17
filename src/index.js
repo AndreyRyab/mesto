@@ -165,3 +165,7 @@ userEditButton.addEventListener('click', () => {
 const popupFullImage = new Popup('.popup_full-image');
 popupFullImage.setEventListeners();
 //<<<<< full image popup initialisation
+
+/* document.querySelector('.profile__avatar').onmouseenter = function() {
+  
+}  */
