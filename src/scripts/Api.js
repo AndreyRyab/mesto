@@ -78,7 +78,7 @@ export default class Api {
       })
   }
 
-  addNewCardToServer() {
+  addNewCardToServer(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: {
@@ -86,8 +86,8 @@ export default class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: popupCard.inputData.name,
-        link: popupCard.inputData.link
+        name: data.name,
+        link: data.link
       })
     })
       .then(res => {
@@ -132,10 +132,6 @@ export default class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .then(data => {
-        const likes = [data.likes].length;
-        return likes;
-      })
       .catch((err) => {
         console.log(err);
       })
@@ -159,4 +155,22 @@ export default class Api {
       })
   }
 
+  addNewAvatar() {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._token
+      },
+      body: JSON.stringify({ avatar })
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 }

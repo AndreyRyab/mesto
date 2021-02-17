@@ -7,6 +7,8 @@ import UserInfo from './scripts/UserInfo.js';
 import Section from './scripts/Section.js';
 import handleCardClick from './scripts/utils.js';
 import Api from './scripts/Api.js';
+import { handleLikes } from './scripts/utils.js';
+
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -43,30 +45,12 @@ api.getUserInfoFromServer()
     api.getInitialCards()
       .then(initialCards => {
         const newSection = new Section({
-          items: initialCards,
+          itemsData: initialCards,
           renderer: (item) => {
             if (item.owner._id === allAboutUser._id) {
               const card = new Card(item, '#cards__item-template_owner', handleCardClick);
               const cardElement = card.generateCard();
-
-
-              //add-remove like feature>>>>>
-              const likeButton = cardElement.querySelector('.cards__like-button');
-              likeButton.addEventListener('click', () => {
-                if (likeButton.classList.contains('cards__like-button_active')) {
-                  api.deleteLike(item._id);
-                  likeButton.classList.remove('cards__like-button_active');
-                } else {
-                  api.addLike(item._id);
-                  likeButton.classList.add('cards__like-button_active');
-                }
-
-                //<<<<
-              });
-
-              //<<<<
-
-              //add delete card feature>>>>
+              handleLikes(cardElement, item._id);
               cardElement.querySelector('.cards__trash-button').addEventListener('click', () => {
                 const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
                   evt.preventDefault();
@@ -78,26 +62,12 @@ api.getUserInfoFromServer()
                 });
                 popupSubmitRemove.open();
                 popupSubmitRemove.setEventListeners();
-              }); //<<<<<
-
+              });
               newSection.addItem(cardElement);
             } else {
               const card = new Card(item, '#cards__item-template', handleCardClick);
               const cardElement = card.generateCard();
-
-              //add-remove like feature>>>>>
-              const likeButton = cardElement.querySelector('.cards__like-button');
-              likeButton.addEventListener('click', () => {
-                if (likeButton.classList.contains('cards__like-button_active')) {
-                  api.deleteLike(item._id);
-                  likeButton.classList.remove('cards__like-button_active');
-                } else {
-                  api.addLike(item._id);
-                  likeButton.classList.add('cards__like-button_active');
-                }
-
-                //<<<<
-              });
+              handleLikes(cardElement, item._id)
               newSection.addItem(cardElement);
             }
           },
@@ -123,32 +93,35 @@ function setValidators(form) {
 export const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
   evt.preventDefault();
   popupCard.close();
-  const newSection = new Section({
-    items: [popupCard.inputData],
-    renderer: (item) => {
-      const card = new Card(item, '#cards__item-template_owner', handleCardClick);
-      const cardElement = card.generateCard();
-      cardElement.querySelector('.cards__trash-button').addEventListener('click', () => {
-        const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
-          evt.preventDefault();
+  api.addNewCardToServer(popupCard.inputData)
+    .then((data) => {
+      const newSection = new Section({
+        itemsData: data,
+        renderer: (item) => {
+          const card = new Card(item, '#cards__item-template_owner', handleCardClick);
+          const cardElement = card.generateCard();
 
-          api.deleteCardFromServer(item._id)
-            .then(() => {
-              popupSubmitRemove.close();
-            })
-            .then(() => cardElement.remove())
-        });
-        popupSubmitRemove.open();
-        popupSubmitRemove.setEventListeners();
-      });
-      newSection.addItem(cardElement);
-    }
-  },
-    '.cards__container');
-  api.addNewCardToServer()
-    //.then тут будем показывать, что сохраняется (то есть попап с кнопкой "сохраняю")
-    .then(() => newSection.renderList());
+          handleLikes(cardElement, item._id);
+          cardElement.querySelector('.cards__trash-button').addEventListener('click', () => {
+            const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
+              evt.preventDefault();
+              api.deleteCardFromServer(item._id)
+                .then(() => {
+                  popupSubmitRemove.close();
+                })
+                .then((cardElement) => cardElement.remove())
+            });
+            popupSubmitRemove.open();
+            popupSubmitRemove.setEventListeners();
+          });
+          newSection.addItem(cardElement);
+        }
+      },
+        '.cards__container');
+      newSection.renderList();///НЕ РАБОТАЕТ!!! карточка сохраняется на сервере, но не рендерится
+    })
 });
+
 setValidators(popupCard.form);
 popupCard.setEventListeners();
 //<<<<< initialising popup add card
