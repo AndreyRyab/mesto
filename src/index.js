@@ -166,6 +166,16 @@ const popupFullImage = new Popup('.popup_full-image');
 popupFullImage.setEventListeners();
 //<<<<< full image popup initialisation
 
-/* document.querySelector('.profile__avatar').onmouseenter = function() {
-  
-}  */
+document.querySelector('.profile__avatar').addEventListener('click', () => {
+  const popupAvatar = new PopupWithForm('.popup_avatar', (evt) => {
+    evt.preventDefault();
+    //????
+  });
+  popupAvatar.open();
+  popupAvatar.setEventListeners();
+})
+
+
+
+
+
