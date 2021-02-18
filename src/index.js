@@ -36,13 +36,12 @@ export const api = new Api('https://mesto.nomoreparties.co/v1/cohort-20', 'fb75d
 
 api.getUserInfoFromServer()
   .then((allAboutUser) => {
-    userInfo.name = allAboutUser.name;
-    userInfo.job = allAboutUser.about;
-    userInfo.id = allAboutUser._id;
-    profileUserName.textContent = userInfo.name;
-    profileUserJob.textContent = userInfo.job;
-    profileAvatar.style.backgroundImage = `url('${allAboutUser.avatar}')`;
+    userInfo.getUserInfo(allAboutUser);
+    userInfo.setUserInfo();
+    userInfo.setAvatar(allAboutUser);
+    console.log(userInfo);
     return userInfo;
+
   })
 
 //profile popup initialisation >>>>>
