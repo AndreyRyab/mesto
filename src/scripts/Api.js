@@ -1,11 +1,10 @@
-import { profileUserName, profileUserJob, profileAvatar, popupCard } from '../index.js';
+import { userInfo } from '../index.js';
 
 export default class Api {
-  constructor(baseUrl, token/* , cardId */) {
+  constructor(baseUrl, token) {
     this._baseUrl = baseUrl;
     this._token = token;
-/*     this._cardId = cardId;
- */  }
+  }
 
   getUserInfoFromServer() {
     return fetch(`${this._baseUrl}/users/me`, {
@@ -23,9 +22,6 @@ export default class Api {
       .then((userData) => {
         const allAboutUser = userData;
         return allAboutUser;
-        /* profileUserName.textContent = userData.name;
-        profileUserJob.textContent = userData.about;
-        profileAvatar.style.backgroundImage = `url('${userData.avatar}')`; */
       })
       .catch((err) => {
         console.log(err);
@@ -46,15 +42,14 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
       })
       .then(data => {
-        const initialCards = data;
-        return initialCards;
+        return data;
       })
       .catch((err) => {
         console.log(err);
       })
   }
 
-  sendUserInfoToServer() {
+  sendUserInfoToServer(userInfo) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -62,8 +57,8 @@ export default class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: profileUserName.textContent,
-        about: profileUserJob.textContent
+        name: userInfo.name,
+        about: userInfo.job
       })
     })
       .then(res => {
@@ -154,13 +149,14 @@ export default class Api {
       })
   }
 
-  addNewAvatar() {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+  addNewAvatar(avatar) {
+    return fetch(`${this._baseUrl}/users/me/${avatar}`, {
       method: 'PATCH',
       headers: {
-        authorization: this._token
+        authorization: this._token,
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ avatar })
+      body: JSON.stringify({ avatar: avatar })
     })
       .then(res => {
         if (res.ok) {

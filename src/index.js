@@ -28,7 +28,7 @@ const cardAddButton = document.querySelector('.profile__add-button');
 
 
 //userInfo object initialisation >>>>>
-const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector: '.profile__about' });
+export const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector: '.profile__about' });
 //<<<<<
 
 //getting user data from server and setting to the profile >>>>>
@@ -36,48 +36,91 @@ export const api = new Api('https://mesto.nomoreparties.co/v1/cohort-20', 'fb75d
 
 api.getUserInfoFromServer()
   .then((allAboutUser) => {
-    profileUserName.textContent = allAboutUser.name;
-    profileUserJob.textContent = allAboutUser.about;
+    userInfo.name = allAboutUser.name;
+    userInfo.job = allAboutUser.about;
+    userInfo.id = allAboutUser._id;
+    profileUserName.textContent = userInfo.name;
+    profileUserJob.textContent = userInfo.job;
     profileAvatar.style.backgroundImage = `url('${allAboutUser.avatar}')`;
-    return allAboutUser;
+    return userInfo;
   })
-  .then((allAboutUser) => {
-    api.getInitialCards()
-      .then(initialCards => {
-        const newSection = new Section({
-          itemsData: initialCards,
-          renderer: (item) => {
-            if (item.owner._id === allAboutUser._id) {
-              const card = new Card(item, '#cards__item-template_owner', handleCardClick);
-              const cardElement = card.generateCard();
-              handleLikes(cardElement, item._id);
-              cardElement.querySelector('.cards__trash-button').addEventListener('click', () => {
-                const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
-                  evt.preventDefault();
-                  api.deleteCardFromServer(item._id)
-                    .then(() => {
-                      popupSubmitRemove.close();
-                    })
-                    .then(() => cardElement.remove())
-                });
-                popupSubmitRemove.open();
-                popupSubmitRemove.setEventListeners();
-              });
-              newSection.addItem(cardElement);
-            } else {
-              const card = new Card(item, '#cards__item-template', handleCardClick);
-              const cardElement = card.generateCard();
-              handleLikes(cardElement, item._id)
-              newSection.addItem(cardElement);
-            }
-          },
-        },
-          '.cards__container');
-        newSection.renderList();
+
+//profile popup initialisation >>>>>
+const popupProfile = new PopupWithForm('.popup_edit-user-profile', (evt) => {
+  evt.preventDefault();
+  popupProfile.setPreloader();
+  userInfo.name = popupProfile.form.username.value;
+  userInfo.job = popupProfile.form.userjob.value
+  api.sendUserInfoToServer(userInfo)
+    .then(() => {
+      profileUserName.textContent = userInfo.name;
+      profileUserJob.textContent = userInfo.job;
+    })
+    .then(() => {
+      popupProfile.close();
+    })
+});
+popupProfile.setEventListeners();
+//<<<<< profile popup initialisation
+
+//push the button to edit the profile >>>>>
+userEditButton.addEventListener('click', () => {
+  //setting data from userInfo to the form when opening >>>>>
+  popupProfile.form.username.value = userInfo.name;
+  popupProfile.form.userjob.value = userInfo.job;
+  //<<<<<< setting data from userInfo to the form when opening
+  popupProfile.open();
+  setValidators(popupProfile.form);
+})
+//<<<<<< push the button to edit the profile
+
+
+
+
+
+
+api.getInitialCards()
+  .then((data) => {
+    const initialCards = data;
+    return initialCards;
+  })
+
+console.log(userInfo, initialCards)
+
+function f(initialCards, userInfo) {
+  const newSection = new Section({
+    itemsData: initialCards,
+    renderer: (item) => {
+      if (item.owner._id === userInfo.id) {
+        const card = new Card(item, '#cards__item-template_owner', handleCardClick);
+        const cardElement = card.generateCard();
+        handleLikes(cardElement, item._id);
+        cardElement.querySelector('.cards__trash-button').addEventListener('click', () => {
+          const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
+            evt.preventDefault();
+            api.deleteCardFromServer(item._id)
+              .then(() => {
+                popupSubmitRemove.close();
+              })
+              .then(() => cardElement.remove())
+          });
+          popupSubmitRemove.open();
+          popupSubmitRemove.setEventListeners();
+        });
+        newSection.addItem(cardElement);
+      } else {
+        const card = new Card(item, '#cards__item-template', handleCardClick);
+        const cardElement = card.generateCard();
+        handleLikes(cardElement, item._id)
+        newSection.addItem(cardElement);
       }
-      )
-  }
-  )
+    },
+  },
+    '.cards__container');
+  newSection.renderList();
+}
+
+f()
 //<<<<<< render initial list
 
 
@@ -134,31 +177,7 @@ cardAddButton.addEventListener('click', () => {
 //<<<<<< push the button to add a card
 
 
-//profile popup initialisation >>>>>
-const popupProfile = new PopupWithForm('.popup_edit-user-profile', (evt) => {
-  evt.preventDefault();
-  //collecting data from the form >>>>>
-  userInfo.name = popupProfile.form.username.value;
-  userInfo.job = popupProfile.form.userjob.value;
-  userInfo.setUserInfo();
-  //<<<< setting to the profile
-  api.sendUserInfoToServer();
-  popupProfile.close();
-});
-popupProfile.setEventListeners();
-//<<<<< profile popup initialisation
 
-//push the button to edit the profile >>>>>
-userEditButton.addEventListener('click', () => {
-  //setting data from userInfo to the form when opening >>>>>
-  userInfo.getUserInfo();
-  popupProfile.form.username.value = userInfo.name;
-  popupProfile.form.userjob.value = userInfo.job;
-  //<<<<<< setting data from userInfo to the form when opening
-  popupProfile.open();
-  setValidators(popupProfile.form);
-})
-//<<<<<< push the button to edit the profile
 
 
 //full image popup initialisation >>>>>
@@ -166,16 +185,22 @@ const popupFullImage = new Popup('.popup_full-image');
 popupFullImage.setEventListeners();
 //<<<<< full image popup initialisation
 
+const popupAvatar = new PopupWithForm('.popup_avatar', (evt) => {
+  evt.preventDefault();
+  popupAvatar.close();
+  console.log(popupAvatar.avatar)
+  api.addNewAvatar(popupAvatar.avatar)
+    .then((data) => {
+      console.log(data)
+    })
+});
+
 document.querySelector('.profile__avatar').addEventListener('click', () => {
-  const popupAvatar = new PopupWithForm('.popup_avatar', (evt) => {
-    evt.preventDefault();
-    //????
-  });
   popupAvatar.open();
   popupAvatar.setEventListeners();
 })
 
 
-
+/* profileAvatar.style.backgroundImage = `url('${userData.avatar}')`; */
 
 
