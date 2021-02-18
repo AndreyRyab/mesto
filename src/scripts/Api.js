@@ -150,13 +150,13 @@ export default class Api {
   }
 
   addNewAvatar(avatar) {
-    return fetch(`${this._baseUrl}/users/me/${avatar}`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
         authorization: this._token,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ avatar: avatar })
+      body: JSON.stringify({ avatar })
     })
       .then(res => {
         if (res.ok) {

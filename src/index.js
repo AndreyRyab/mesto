@@ -26,34 +26,28 @@ export const profileAvatar = document.querySelector('.profile__avatar');
 const userEditButton = document.querySelector('.profile__user-button');
 const cardAddButton = document.querySelector('.profile__add-button');
 
-
-//userInfo object initialisation >>>>>
 export const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSelector: '.profile__about' });
-//<<<<<
 
-//getting user data from server and setting to the profile >>>>>
 export const api = new Api('https://mesto.nomoreparties.co/v1/cohort-20', 'fb75d0e9-391a-4d96-80ba-b4913a49b17c');
 
+//initial data from server>>>>
 api.getUserInfoFromServer()
   .then((allAboutUser) => {
     userInfo.getUserInfo(allAboutUser);
     userInfo.setUserInfo();
     userInfo.setAvatar(allAboutUser);
-    console.log(userInfo);
     return userInfo;
-
-  })
+  })//<<<<<
 
 //profile popup initialisation >>>>>
 const popupProfile = new PopupWithForm('.popup_edit-user-profile', (evt) => {
   evt.preventDefault();
   popupProfile.setPreloader();
   userInfo.name = popupProfile.form.username.value;
-  userInfo.job = popupProfile.form.userjob.value
+  userInfo.job = popupProfile.form.userjob.value;
   api.sendUserInfoToServer(userInfo)
     .then(() => {
-      profileUserName.textContent = userInfo.name;
-      profileUserJob.textContent = userInfo.job;
+      userInfo.setUserInfo();
     })
     .then(() => {
       popupProfile.close();
@@ -64,64 +58,59 @@ popupProfile.setEventListeners();
 
 //push the button to edit the profile >>>>>
 userEditButton.addEventListener('click', () => {
-  //setting data from userInfo to the form when opening >>>>>
   popupProfile.form.username.value = userInfo.name;
   popupProfile.form.userjob.value = userInfo.job;
-  //<<<<<< setting data from userInfo to the form when opening
   popupProfile.open();
   setValidators(popupProfile.form);
 })
 //<<<<<< push the button to edit the profile
 
+const popupSubmitRemove = new PopupWithForm('.popup_submit-remove');
+popupSubmitRemove.setEventListeners();
 
-
-
-
-
-api.getInitialCards()
-  .then((data) => {
-    const initialCards = data;
-    return initialCards;
-  })
-
-console.log(userInfo, initialCards)
-
-function f(initialCards, userInfo) {
-  const newSection = new Section({
-    itemsData: initialCards,
-    renderer: (item) => {
-      if (item.owner._id === userInfo.id) {
-        const card = new Card(item, '#cards__item-template_owner', handleCardClick);
-        const cardElement = card.generateCard();
-        handleLikes(cardElement, item._id);
-        cardElement.querySelector('.cards__trash-button').addEventListener('click', () => {
-          const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
-            evt.preventDefault();
-            api.deleteCardFromServer(item._id)
-              .then(() => {
-                popupSubmitRemove.close();
-              })
-              .then(() => cardElement.remove())
-          });
-          popupSubmitRemove.open();
-          popupSubmitRemove.setEventListeners();
-        });
-        newSection.addItem(cardElement);
-      } else {
-        const card = new Card(item, '#cards__item-template', handleCardClick);
-        const cardElement = card.generateCard();
-        handleLikes(cardElement, item._id)
-        newSection.addItem(cardElement);
-      }
-    },
-  },
-    '.cards__container');
-  newSection.renderList();
+function handleTrashButton(cardElement, item) {
+  cardElement.querySelector('.cards__trash-button').addEventListener('click', (evt) => {
+    popupSubmitRemove.open();
+    popupSubmitRemove.setEventListeners();
+    popupSubmitRemove.submit(evt, cardElement, item);
+  });
 }
 
-f()
-//<<<<<< render initial list
+/* function showMyLikes(item, cardElement) {
+  console.log(item.likes)
+  console.log(userInfo.name)
+  item.likes.forEach((like) => {
+    if (like.name === userInfo.name)
+      cardElement.querySelector('.cards__like-button').classList.add('cards__like-button_active')
+  })
+} */
 
+//get data for initial cards list and render>>>>
+api.getInitialCards()
+  .then((initialCards) => {
+    const newSection = new Section({
+      itemsData: initialCards,
+      renderer: (item) => {
+        if (item.owner._id === userInfo.id) {
+          const card = new Card(item, '#cards__item-template_owner', handleCardClick);
+          const cardElement = card.generateCard();
+          handleLikes(cardElement, item._id);
+          /* console.log(item)
+          showMyLikes(item, cardElement); */
+          handleTrashButton(cardElement, item._id);
+          newSection.addItem(cardElement);
+        } else {
+          const card = new Card(item, '#cards__item-template', handleCardClick);
+          const cardElement = card.generateCard();
+          handleLikes(cardElement, item._id)
+          newSection.addItem(cardElement);
+        }
+      },
+    },
+      '.cards__container');
+    newSection.renderList();
+  })
+//<<<<<
 
 //enable validation >>>>
 function setValidators(form) {
@@ -130,37 +119,26 @@ function setValidators(form) {
 }
 //<<<< enable validation
 
-
 //initialising popup add card >>>>>
 export const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
   evt.preventDefault();
-  popupCard.close();
+  popupCard.setPreloader();
+  popupCard.getInputValues();
   api.addNewCardToServer(popupCard.inputData)
     .then((data) => {
       const newSection = new Section({
-        itemsData: data,
+        itemsData: [data],
         renderer: (item) => {
           const card = new Card(item, '#cards__item-template_owner', handleCardClick);
           const cardElement = card.generateCard();
-
           handleLikes(cardElement, item._id);
-          cardElement.querySelector('.cards__trash-button').addEventListener('click', () => {
-            const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
-              evt.preventDefault();
-              api.deleteCardFromServer(item._id)
-                .then(() => {
-                  popupSubmitRemove.close();
-                })
-                .then((cardElement) => cardElement.remove())
-            });
-            popupSubmitRemove.open();
-            popupSubmitRemove.setEventListeners();
-          });
+          handleTrashButton(cardElement, item._id);
           newSection.addItem(cardElement);
         }
       },
         '.cards__container');
-      newSection.renderList();///НЕ РАБОТАЕТ!!! карточка сохраняется на сервере, но не рендерится
+      newSection.renderList();
+      popupCard.close();
     })
 });
 
@@ -175,31 +153,22 @@ cardAddButton.addEventListener('click', () => {
 });
 //<<<<<< push the button to add a card
 
-
-
-
-
-//full image popup initialisation >>>>>
 const popupFullImage = new Popup('.popup_full-image');
 popupFullImage.setEventListeners();
-//<<<<< full image popup initialisation
 
 const popupAvatar = new PopupWithForm('.popup_avatar', (evt) => {
   evt.preventDefault();
-  popupAvatar.close();
-  console.log(popupAvatar.avatar)
-  api.addNewAvatar(popupAvatar.avatar)
+  popupAvatar.setPreloader();
+  const avatar = popupAvatar.form.link.value;
+  console.log(avatar);
+  api.addNewAvatar(avatar)
     .then((data) => {
-      console.log(data)
+      profileAvatar.style.backgroundImage = `url('${data}')`;
     })
+    .then(() => popupAvatar.close())
 });
 
 document.querySelector('.profile__avatar').addEventListener('click', () => {
   popupAvatar.open();
   popupAvatar.setEventListeners();
 })
-
-
-/* profileAvatar.style.backgroundImage = `url('${userData.avatar}')`; */
-
-

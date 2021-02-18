@@ -1,4 +1,5 @@
 import Popup from './Popup.js';
+import { api } from '../index.js';
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, submitForm) {
@@ -7,16 +8,11 @@ export default class PopupWithForm extends Popup {
     this._submitForm = submitForm;
   }
 
-  /*   _getInputValues() {
-      if (this.form.title) {
-        this.inputData = { name: this.form.title.value, link: this.form.link.value }
-      } else if (this.form.name) {
-        this.inputData = { name: this.form.username.value, about: this.form.userjob.value }
-      }
-      else {
-        this.avatar = this.form.link.value
-      }
-    } */
+  getInputValues() {
+    if (this.form.title) {
+      this.inputData = { name: this.form.title.value, link: this.form.link.value }
+    }
+  }
 
   setPreloader() {
     this.form.querySelector('.popup__form-button').textContent = 'Сохраняется...'
@@ -31,4 +27,18 @@ export default class PopupWithForm extends Popup {
     super.close();
     this.form.reset();
   }
+
+  submit(evt, card, itemId) {
+    evt.preventDefault();
+    super.open;
+    this.form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      api.deleteCardFromServer(itemId)
+        .then(() => {
+          card.remove();
+          this.close();
+        })
+    })
+  }
+
 }
