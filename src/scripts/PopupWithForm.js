@@ -2,10 +2,11 @@ import Popup from './Popup.js';
 import { api } from '../index.js';
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, submitForm) {
+  constructor(popupSelector, submitForm, buttonText) {
     super(popupSelector);
     this.form = this._popup.querySelector('.popup__form');
     this._submitForm = submitForm;
+    this._buttonText = buttonText;
   }
 
   getInputValues() {
@@ -20,10 +21,10 @@ export default class PopupWithForm extends Popup {
 
   removePreloader() {
     if (this._popup.classList.contains('popup_avatar')) {
-      this.form.querySelector('.popup__form-button').textContent = 'Сохранить'
+      this.form.querySelector('.popup__form-button').textContent = this._buttonText
     }
     else {
-      this.form.querySelector('.popup__form-button').textContent = 'Создать'
+      this.form.querySelector('.popup__form-button').textContent = this._buttonText
     }
   }
 
@@ -47,6 +48,10 @@ export default class PopupWithForm extends Popup {
           card.remove();
           this.close();
         })
+        .catch((err) => {
+          console.log(err);
+        })
     })
   }
+
 }

@@ -1,9 +1,7 @@
-import PopupWithImage from './PopupWithImage.js';
 import FormValidator from './FormValidator.js';
-import { api, userInfo, popupSubmitRemove, validationConfig } from '../index.js';
+import { api, userInfo, popupSubmitRemove, validationConfig, popupFullImageOpened } from '../index.js';
 
 export default function handleCardClick(evt) {
-  const popupFullImageOpened = new PopupWithImage('.popup_full-image');
   popupFullImageOpened.open(evt);
 }
 
@@ -17,11 +15,17 @@ export function handleLikes(cardElement, itemId) {
           likesCounter.textContent = data.likes.length;
           likeButton.classList.remove('cards__like-button_active');
         })
+        .catch((err) => {
+          console.log(err);
+        })
     } else {
       api.addLike(itemId)
         .then((data) => {
           likesCounter.textContent = data.likes.length;
           likeButton.classList.add('cards__like-button_active');
+        })
+        .catch((err) => {
+          console.log(err);
         })
     }
   })
@@ -29,7 +33,7 @@ export function handleLikes(cardElement, itemId) {
 
 export function showMyLikes(item, cardElement) {
   item.likes.forEach((item) => {
-    if (item.name === userInfo.name) {
+    if (item._id === userInfo.id) {
       cardElement.querySelector('.cards__like-button').classList.add('cards__like-button_active')
     }
   })
@@ -38,7 +42,6 @@ export function showMyLikes(item, cardElement) {
 export function handleTrashButton(cardElement, item) {
   cardElement.querySelector('.cards__trash-button').addEventListener('click', (evt) => {
     popupSubmitRemove.open();
-    popupSubmitRemove.setEventListeners();
     popupSubmitRemove.submit(evt, cardElement, item);
   });
 }
