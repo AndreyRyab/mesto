@@ -18,6 +18,15 @@ export default class PopupWithForm extends Popup {
     this.form.querySelector('.popup__form-button').textContent = 'Сохраняется...'
   }
 
+  removePreloader() {
+    if (this._popup.classList.contains('popup_avatar')) {
+      this.form.querySelector('.popup__form-button').textContent = 'Сохранить'
+    }
+    else {
+      this.form.querySelector('.popup__form-button').textContent = 'Создать'
+    }
+  }
+
   setEventListeners() {
     super.setEventListeners();
     this.form.addEventListener('submit', this._submitForm);
@@ -40,5 +49,4 @@ export default class PopupWithForm extends Popup {
         })
     })
   }
-
 }

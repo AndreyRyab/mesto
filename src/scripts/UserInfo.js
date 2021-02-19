@@ -21,4 +21,3 @@ export default class UserInfo {
     profileAvatar.style.backgroundImage = `url('${allAboutUser.avatar}')`;
   }
 }
-

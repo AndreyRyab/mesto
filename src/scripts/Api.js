@@ -1,5 +1,3 @@
-import { userInfo } from '../index.js';
-
 export default class Api {
   constructor(baseUrl, token) {
     this._baseUrl = baseUrl;
