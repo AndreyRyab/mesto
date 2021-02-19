@@ -1,6 +1,6 @@
-import PopupWithForm from './PopupWithForm.js';
 import PopupWithImage from './PopupWithImage.js';
-import { api } from '../index.js';
+import FormValidator from './FormValidator.js';
+import { api, userInfo, popupSubmitRemove, validationConfig } from '../index.js';
 
 export default function handleCardClick(evt) {
   const popupFullImageOpened = new PopupWithImage('.popup_full-image');
@@ -8,7 +8,6 @@ export default function handleCardClick(evt) {
 }
 
 export function handleLikes(cardElement, itemId) {
-  //???как сделать, чтобы лайк горел, если юзер уже лайкал???? 
   const likesCounter = cardElement.querySelector('.cards__like-counter');
   const likeButton = cardElement.querySelector('.cards__like-button');
   likeButton.addEventListener('click', () => {
@@ -28,18 +27,23 @@ export function handleLikes(cardElement, itemId) {
   })
 }
 
-/* export function submitRemoveCard(cardId) {
-  const popupSubmitRemove = new PopupWithForm('.popup_submit-remove', (evt) => {
-    evt.preventDefault();
-    api.deleteCardFromServer(cardId);
+export function showMyLikes(item, cardElement) {
+  item.likes.forEach((item) => {
+    if (item.name === userInfo.name) {
+      cardElement.querySelector('.cards__like-button').classList.add('cards__like-button_active')
+    }
+  })
+}
+
+export function handleTrashButton(cardElement, item) {
+  cardElement.querySelector('.cards__trash-button').addEventListener('click', (evt) => {
+    popupSubmitRemove.open();
+    popupSubmitRemove.setEventListeners();
+    popupSubmitRemove.submit(evt, cardElement, item);
   });
-  popupSubmitRemove.open();
-  popupSubmitRemove.setEventListeners();
-} */
+}
 
-/* export function handleTrashButton(evt) {
-  let deletedCard = evt.target.closest('.cards__item');
-  deletedCard.remove();
-  deletedCard = null;
-
-} */
+export function setValidators(form) {
+  const formValidator = new FormValidator(validationConfig, form);
+  formValidator.enableValidation();
+}
