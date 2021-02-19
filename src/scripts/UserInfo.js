@@ -1,4 +1,4 @@
-import { profileUserName, profileUserJob } from '../index.js';
+import { profileUserName, profileUserJob, profileAvatar } from '../index.js';
 
 export default class UserInfo {
   constructor({ nameSelector, jobSelector }) {
@@ -6,14 +6,18 @@ export default class UserInfo {
     this.job = document.querySelector(jobSelector).textContent;
   }
 
-  getUserInfo() {
-    this.name = profileUserName.textContent;
-    this.job = profileUserJob.textContent;
-    
+  getUserInfo(allAboutUser) {
+    this.name = allAboutUser.name;
+    this.job = allAboutUser.about;
+    this.id = allAboutUser._id;
   }
 
   setUserInfo() {
     profileUserName.textContent = this.name;
     profileUserJob.textContent = this.job;
+  }
+
+  setAvatar(allAboutUser) {
+    profileAvatar.style.backgroundImage = `url('${allAboutUser.avatar}')`;
   }
 }
