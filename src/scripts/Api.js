@@ -17,13 +17,6 @@ export default class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .then((userData) => {
-        const allAboutUser = userData;
-        return allAboutUser;
-      })
-      .catch((err) => {
-        console.log(err);
-      })
   }
 
   getInitialCards() {
@@ -38,12 +31,6 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(data => {
-        return data;
-      })
-      .catch((err) => {
-        console.log(err);
       })
   }
 
@@ -65,9 +52,6 @@ export default class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch((err) => {
-        console.log(err);
-      })
   }
 
   addNewCardToServer(data) {
@@ -88,9 +72,6 @@ export default class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch((err) => {
-        console.log(err);
-      })
   }
 
   deleteCardFromServer(cardId) {
@@ -105,9 +86,6 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
       })
   }
 
@@ -124,9 +102,6 @@ export default class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch((err) => {
-        console.log(err);
-      })
   }
 
   deleteLike(cardId) {
@@ -141,9 +116,6 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
       })
   }
 
@@ -161,9 +133,6 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
       })
   }
 }
