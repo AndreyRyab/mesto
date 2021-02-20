@@ -2,11 +2,13 @@ import './pages/index.css';
 import Card from './scripts/Card.js';
 import Popup from './scripts/Popup.js';
 import PopupWithForm from './scripts/PopupWithForm.js';
+import PopupSubmitRemove from './scripts/PopupSubmitRemove.js';
+import PopupWithImage from './scripts/PopupWithImage.js';
 import UserInfo from './scripts/UserInfo.js';
 import Section from './scripts/Section.js';
 import handleCardClick from './scripts/utils.js';
 import Api from './scripts/Api.js';
-import { handleLikes, handleTrashButton, showMyLikes, setValidators } from './scripts/utils.js';
+import { setValidators } from './scripts/utils.js';
 
 
 export const validationConfig = {
@@ -29,20 +31,47 @@ export const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSe
 
 export const api = new Api('https://mesto.nomoreparties.co/v1/cohort-20', 'fb75d0e9-391a-4d96-80ba-b4913a49b17c');
 
-export const popupSubmitRemove = new PopupWithForm('.popup_submit-remove');
+export const popupSubmitRemove = new PopupSubmitRemove('.popup_submit-remove', 'Вы уверены?', 'Да');
 popupSubmitRemove.setEventListeners();
+
+export const popupFullImageOpened = new PopupWithImage('.popup_full-image');
 
 const popupFullImage = new Popup('.popup_full-image');
 popupFullImage.setEventListeners();
 
-//initial data from server>>>>
-api.getUserInfoFromServer()
-  .then((allAboutUser) => {
+Promise.all([
+  api.getUserInfoFromServer(),
+  api.getInitialCards()
+])
+  .then(([allAboutUser, initialCards]) => {
     userInfo.getUserInfo(allAboutUser);
     userInfo.setUserInfo();
     userInfo.setAvatar(allAboutUser);
-    return userInfo;
-  })//<<<<<
+    const newSection = new Section({
+      itemsData: initialCards.reverse(),
+      renderer: (item) => {
+        if (item.owner._id === userInfo.id) {
+          const card = new Card(item, '#cards__item-template_owner', handleCardClick);
+          const cardElement = card.generateCard();
+          card.showMyLikes();
+          card.enableTrashButton();
+          card.handleLikes(cardElement, item._id);
+          newSection.addItem(cardElement);
+        } else {
+          const card = new Card(item, '#cards__item-template', handleCardClick);
+          const cardElement = card.generateCard();
+          card.showMyLikes();
+          card.handleLikes();
+          newSection.addItem(cardElement);
+        }
+      },
+    },
+      '.cards__container');
+    newSection.renderList();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 
 //profile popup initialisation >>>>>
 const popupProfile = new PopupWithForm('.popup_edit-user-profile', (evt) => {
@@ -57,7 +86,11 @@ const popupProfile = new PopupWithForm('.popup_edit-user-profile', (evt) => {
     .then(() => {
       popupProfile.close();
     })
-});
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => popupProfile.removePreloader())
+}, 'Сохранить');
 popupProfile.setEventListeners();
 //<<<<< profile popup initialisation
 
@@ -69,33 +102,6 @@ userEditButton.addEventListener('click', () => {
   setValidators(popupProfile.form);
 })
 //<<<<<< push the button to edit the profile
-
-//get data for initial cards list and render>>>>
-api.getInitialCards()
-  .then((initialCards) => {
-    const newSection = new Section({
-      itemsData: initialCards,
-      renderer: (item) => {
-        if (item.owner._id === userInfo.id) {
-          const card = new Card(item, '#cards__item-template_owner', handleCardClick);
-          const cardElement = card.generateCard();
-          handleLikes(cardElement, item._id);
-          showMyLikes(item, cardElement);
-          handleTrashButton(cardElement, item._id);
-          newSection.addItem(cardElement);
-        } else {
-          const card = new Card(item, '#cards__item-template', handleCardClick);
-          const cardElement = card.generateCard();
-          handleLikes(cardElement, item._id);
-          showMyLikes(item, cardElement);
-          newSection.addItem(cardElement);
-        }
-      },
-    },
-      '.cards__container');
-    newSection.renderList();
-  })
-//<<<<<
 
 //initialising popup add card >>>>>
 export const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
@@ -109,8 +115,9 @@ export const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
         renderer: (item) => {
           const card = new Card(item, '#cards__item-template_owner', handleCardClick);
           const cardElement = card.generateCard();
-          handleLikes(cardElement, item._id);
-          handleTrashButton(cardElement, item._id);
+          card.showMyLikes();
+          card.enableTrashButton();
+          card.handleLikes(cardElement, item._id);
           newSection.addItem(cardElement);
         }
       },
@@ -118,8 +125,11 @@ export const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
       newSection.renderList();
     })
     .then(() => popupCard.close())
-    .then(() => popupCard.removePreloader())
-});
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => popupCard.removePreloader())
+}, 'Создать');
 setValidators(popupCard.form);
 popupCard.setEventListeners();
 //<<<<< initialising popup add card
@@ -140,10 +150,14 @@ const popupAvatar = new PopupWithForm('.popup_avatar', (evt) => {
       userInfo.setAvatar(data);
     })
     .then(() => popupAvatar.close())
-    .then(() => popupAvatar.removePreloader())
-});
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => popupAvatar.removePreloader())
+}, 'Сохранить');
+
+popupAvatar.setEventListeners();
 
 document.querySelector('.profile__avatar').addEventListener('click', () => {
   popupAvatar.open();
-  popupAvatar.setEventListeners();
 })
