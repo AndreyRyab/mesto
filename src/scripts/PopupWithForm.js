@@ -34,20 +34,4 @@ export default class PopupWithForm extends Popup {
     this.form.reset();
   }
 
-  /* submit(evt, card, itemId) {
-    evt.preventDefault();
-    super.open;
-    this.form.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      api.deleteCardFromServer(itemId)
-        .then(() => {
-          card.remove();
-          this.close();
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    })
-  } */
-
 }
