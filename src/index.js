@@ -31,7 +31,22 @@ export const userInfo = new UserInfo({ nameSelector: '.profile__username', jobSe
 
 export const api = new Api('https://mesto.nomoreparties.co/v1/cohort-20', 'fb75d0e9-391a-4d96-80ba-b4913a49b17c');
 
-export const popupSubmitRemove = new PopupWithForm('.popup_submit-remove');
+/* function deleteCard(card) {
+  card.delete();
+} */
+
+export const popupSubmitRemove = new PopupSubmitRemove('.popup_submit-remove', 'Вы уверены?', 'Да'/* , (element, id, evt) => {
+  evt.preventDefault();
+  api.deleteCardFromServer(id)
+    .then(() => {
+      element.remove();
+      element = null;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => popupSubmitRemove.close())
+} */);
 popupSubmitRemove.setEventListeners();
 
 export const popupFullImageOpened = new PopupWithImage('.popup_full-image');
@@ -54,15 +69,15 @@ Promise.all([
         if (item.owner._id === userInfo.id) {
           const card = new Card(item, '#cards__item-template_owner', handleCardClick);
           const cardElement = card.generateCard();
-          handleLikes(cardElement, item._id);
-          showMyLikes(item, cardElement);
-          handleTrashButton(cardElement, item._id);
+          card.showMyLikes();
+          card.enableTrashButton();
+          card.handleLikes(cardElement, item._id);
           newSection.addItem(cardElement);
         } else {
           const card = new Card(item, '#cards__item-template', handleCardClick);
           const cardElement = card.generateCard();
-          handleLikes(cardElement, item._id);
-          showMyLikes(item, cardElement);
+          card.showMyLikes();
+          card.handleLikes();
           newSection.addItem(cardElement);
         }
       },
@@ -91,6 +106,7 @@ const popupProfile = new PopupWithForm('.popup_edit-user-profile', (evt) => {
     .catch((err) => {
       console.log(err);
     })
+    .finally(() => popupProfile.removePreloader())
 });
 popupProfile.setEventListeners();
 //<<<<< profile popup initialisation
@@ -116,8 +132,9 @@ export const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
         renderer: (item) => {
           const card = new Card(item, '#cards__item-template_owner', handleCardClick);
           const cardElement = card.generateCard();
-          handleLikes(cardElement, item._id);
-          handleTrashButton(cardElement, item._id);
+          card.showMyLikes();
+          card.enableTrashButton();
+          card.handleLikes(cardElement, item._id);
           newSection.addItem(cardElement);
         }
       },
@@ -164,8 +181,7 @@ document.querySelector('.profile__avatar').addEventListener('click', () => {
 
 
 //_______________
-export const popupSubmitRemove = new PopupSubmitRemove('.popup_submit-remove', submitForm, 'Вы уверены?', 'Да');
-popupSubmitRemove.setEventListeners();
+
 
 
 

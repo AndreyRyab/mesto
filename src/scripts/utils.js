@@ -5,7 +5,11 @@ export default function handleCardClick(evt) {
   popupFullImageOpened.open(evt);
 }
 
-export function handleLikes(cardElement, itemId) {
+export function removeCard(itemId) {
+
+}
+
+/* export function handleLikes(cardElement, itemId) {
   const likesCounter = cardElement.querySelector('.cards__like-counter');
   const likeButton = cardElement.querySelector('.cards__like-button');
   likeButton.addEventListener('click', () => {
@@ -44,7 +48,7 @@ export function handleTrashButton(cardElement, item) {
     popupSubmitRemove.open();
     popupSubmitRemove.submit(evt, cardElement, item);
   });
-}
+} */
 
 export function setValidators(form) {
   const formValidator = new FormValidator(validationConfig, form);
