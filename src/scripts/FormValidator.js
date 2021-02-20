@@ -30,7 +30,6 @@ export default class FormValidator {
       .forEach((item) => { item.classList.remove(this._errorVisibility) });
   }
 
-
   _setEventListeners() {
     this._inputList.forEach((item) => {
       addEventListener('input', () => {

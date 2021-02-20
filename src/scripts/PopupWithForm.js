@@ -5,6 +5,7 @@ export default class PopupWithForm extends Popup {
   constructor(popupSelector, submitForm, buttonText) {
     super(popupSelector);
     this.form = this._popup.querySelector('.popup__form');
+    this._button = this.form.querySelector('.popup__form-button');
     this._submitForm = submitForm;
     this._buttonText = buttonText;
   }
@@ -16,16 +17,11 @@ export default class PopupWithForm extends Popup {
   }
 
   setPreloader() {
-    this.form.querySelector('.popup__form-button').textContent = 'Сохраняется...'
+    this._button.textContent = 'Сохраняется...'
   }
 
   removePreloader() {
-    if (this._popup.classList.contains('popup_avatar')) {
-      this.form.querySelector('.popup__form-button').textContent = this._buttonText
-    }
-    else {
-      this.form.querySelector('.popup__form-button').textContent = this._buttonText
-    }
+    this._button.textContent = this._buttonText
   }
 
   setEventListeners() {
@@ -38,7 +34,7 @@ export default class PopupWithForm extends Popup {
     this.form.reset();
   }
 
-  submit(evt, card, itemId) {
+  /* submit(evt, card, itemId) {
     evt.preventDefault();
     super.open;
     this.form.addEventListener('submit', (evt) => {
@@ -52,6 +48,6 @@ export default class PopupWithForm extends Popup {
           console.log(err);
         })
     })
-  }
+  } */
 
 }
