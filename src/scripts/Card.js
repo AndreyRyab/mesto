@@ -10,8 +10,6 @@ export default class Card {
     this._id = data._id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    /*     this._likeButton = this.querySelector('.cards__like-button');
-     */    /* this._likesCounter = this.querySelector('.cards__like-counter'); */
   }
 
   //make an empty card-tempate
@@ -83,72 +81,37 @@ export default class Card {
   }
 
   enableTrashButton() {
-    this._element.querySelector('.cards__trash-button').addEventListener('click', (evt) => {
-      popupSubmitRemove.open()
-      evt.preventDefault();
-      api.deleteCardFromServer(this._id)
-        .then(() => {
-          this._element.remove();
-          this._element = null;
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => popupSubmitRemove.close())
+    this._trashButton = this._element.querySelector('.cards__trash-button');
+    this._trashButton.addEventListener('click', () => {
+      popupSubmitRemove.open();
+      popupSubmitRemove.button.addEventListener('click', (evt) => {
+        evt.preventDefault();
+        api.deleteCardFromServer(this._id)
+          .then(() => {
+            this._element.remove();
+            this._element = null;
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            popupSubmitRemove.close(),
+              popupSubmitRemove.button.removeEventListener('click', (evt) => {
+                evt.preventDefault()
+                console.log(this._id)
+                api.deleteCardFromServer(this._id)
+                  .then(() => {
+                    this._element.remove();
+                    this._element = null;
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  })
+                  .finally(() => popupSubmitRemove.close())
+              })
+          })
+      })
     })
   }
 
 }
-
-
-
-/*
-        .then(() => {
-          this._element.remove();
-          this._element = null;
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => popupSubmitRemove.close()) */
-
-/* delete() {
-popupSubmitRemove.handleSubmit(() => {
-  api.deleteCardFromServer(this._id)
-    .then(() => {
-      this._element.remove();
-      this._element = null;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => popupSubmitRemove.close())
-})
-} */
-
-
-
-/* popupSubmitRemove.open(this._element)
-    api.deleteCardFromServer(this._id)
-      .then(() => {
-        this._element.remove();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => popupSubmitRemove.close()) */
-
-/* (evt) => {
-  evt.preventDefault(); */
-
-/* popupSubmitRemove.querySelector('.popup__form-button_submit-remove').addEventListener('click', () => {
-  api.deleteCardFromServer(this._id)
-    .then(() => {
-      this._element.remove();
-      this._element = null;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => popupSubmitRemove.close())
-}) */
