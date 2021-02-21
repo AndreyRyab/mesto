@@ -83,12 +83,9 @@ export default class Card {
     this._trashButton = this._element.querySelector('.cards__trash-button');
     this._trashButton.addEventListener('click', () => {
       this._popupSubmit.open();
-      this._popupSubmit.button.addEventListener('click', (evt) => {
-        this._popupSubmit.deleteCard(this._id, this._element, evt),
-          this._popupSubmit.button.removeEventListener('click', (evt) => {
-            this._popupSubmit.deleteCard(this._id, this._element, evt)
-          })
-      })
+      this._popupSubmit.button.onclick = (evt) => {
+        this._popupSubmit.deleteCard(this._id, this._element, evt)
+      }
     })
   }
 }
