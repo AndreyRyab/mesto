@@ -11,12 +11,7 @@ export default class Api {
         authorization: this._token
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
   }
 
   getInitialCards() {
@@ -26,12 +21,7 @@ export default class Api {
         authorization: this._token
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
   }
 
   sendUserInfoToServer(userInfo) {
@@ -46,12 +36,7 @@ export default class Api {
         about: userInfo.job
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
   }
 
   addNewCardToServer(data) {
@@ -66,12 +51,7 @@ export default class Api {
         link: data.link
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
   }
 
   deleteCardFromServer(cardId) {
@@ -81,12 +61,7 @@ export default class Api {
         authorization: this._token
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
   }
 
   addLike(cardId) {
@@ -96,12 +71,7 @@ export default class Api {
         authorization: this._token
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
   }
 
   deleteLike(cardId) {
@@ -111,12 +81,7 @@ export default class Api {
         authorization: this._token
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
   }
 
   addNewAvatar(avatar) {
@@ -128,11 +93,13 @@ export default class Api {
       },
       body: JSON.stringify({ avatar })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
+  }
+
+  _getResponseData(res) {
+    if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
   }
 }
