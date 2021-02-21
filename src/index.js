@@ -51,14 +51,14 @@ Promise.all([
       itemsData: initialCards.reverse(),
       renderer: (item) => {
         if (item.owner._id === userInfo.id) {
-          const card = new Card(item, '#cards__item-template_owner', handleCardClick);
+          const card = new Card(item, '#cards__item-template_owner', handleCardClick, api, popupSubmitRemove, userInfo);
           const cardElement = card.generateCard();
           card.showMyLikes();
           card.enableTrashButton();
-          card.handleLikes(cardElement, item._id);
+          card.handleLikes();
           newSection.addItem(cardElement);
         } else {
-          const card = new Card(item, '#cards__item-template', handleCardClick);
+          const card = new Card(item, '#cards__item-template', handleCardClick, api, popupSubmitRemove, userInfo);
           const cardElement = card.generateCard();
           card.showMyLikes();
           card.handleLikes();
@@ -113,7 +113,7 @@ export const popupCard = new PopupWithForm('.popup_add-card', (evt) => {
       const newSection = new Section({
         itemsData: [data],
         renderer: (item) => {
-          const card = new Card(item, '#cards__item-template_owner', handleCardClick);
+          const card = new Card(item, '#cards__item-template_owner', handleCardClick, api, popupSubmitRemove, userInfo);
           const cardElement = card.generateCard();
           card.showMyLikes();
           card.enableTrashButton();
