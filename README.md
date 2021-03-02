@@ -1,6 +1,6 @@
 # Mesto/Russia
 
-It's a [single-page project](https://andreyryab.github.io/mesto/index.html) - kind of a photo-blog.
+It's a [single-page project](https://andreyryab.github.io/mesto/) - kind of a photo-blog.
 Features:
 
 * js+vendor form validation
